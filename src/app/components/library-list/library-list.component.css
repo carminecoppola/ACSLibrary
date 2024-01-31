@@ -1,0 +1,12 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-toolbar{
+  background-color: rgba(128, 128, 128, 0.66);
+  height: 50px;
+  color: white;
+  font-size: larger;
+  font-weight: bold;
+}
+

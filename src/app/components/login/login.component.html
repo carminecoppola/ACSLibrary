@@ -1,0 +1,38 @@
+<div class="containerLogin">
+  <div class="login-header">
+    <img src="../../../assets/libraryLogo.svg" alt="enterSVG" height="70" width="70">
+  </div>
+
+
+
+  <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+    <div class="containerInput">
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username">
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password">
+          <mat-icon matSuffix>security</mat-icon>
+        </mat-form-field>
+      </p>
+      <div class="example-button-row">
+        <button mat-raised-button type="submit" [disabled]="!loginForm.valid">
+          Sign in
+          <mat-icon matSuffix>login</mat-icon>
+        </button>
+        <div *ngIf="messageError" class="error-card">
+          {{ messageError }}
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+

@@ -1,0 +1,29 @@
+.container {
+  text-align: center;
+  margin-top: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /*sposta il contenitore indietro di metà della sua larghezza e altezza*/
+}
+
+h1 {
+  font-size: 50px;
+  font-weight: bold;
+  color: #ff0000;
+}
+
+p {
+  font-size: small;
+  color: #555;
+}
+
+a {
+  color: cornflowerblue;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}

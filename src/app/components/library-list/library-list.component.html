@@ -1,0 +1,21 @@
+<nav>
+  <mat-toolbar>
+    <button mat-icon-button class="example-icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>{{ title }}</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon" (click)="logout()">
+      <mat-icon >logout</mat-icon>
+    </button>
+  </mat-toolbar>
+</nav>
+
+
+<h3>List of Book's</h3>
+<mat-list>
+  <mat-list-item>
+    <span matListItemTitle>Frist Book</span>
+  </mat-list-item>
+  <mat-list-item>Second Book</mat-list-item>
+</mat-list>
