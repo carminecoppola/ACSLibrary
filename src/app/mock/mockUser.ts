@@ -1,4 +1,4 @@
-import {User} from "./components/User";
+import {User} from "../components/User";
 
 export const USERS:User[] = [
   { name: 'Carmine', surname: 'Coppola', username: 'carminiello', password: '123' },

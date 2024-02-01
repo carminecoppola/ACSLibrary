@@ -17,6 +17,7 @@ import { LibraryListComponent } from './components/library-list/library-list.com
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import {provideRouter} from "@angular/router";
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
@@ -27,9 +28,8 @@ import {provideRouter} from "@angular/router";
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, AppRoutingModule,
-    MatToolbarModule, MatIconModule, MatButtonModule, MatListModule,
-    MatInputModule, MatFormFieldModule, NgOptimizedImage,
-    ReactiveFormsModule,
+    MatToolbarModule, MatIconModule, MatButtonModule, MatListModule, MatInputModule,
+    MatFormFieldModule, MatTableModule, NgOptimizedImage, ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

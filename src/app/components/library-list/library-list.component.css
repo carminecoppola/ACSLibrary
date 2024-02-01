@@ -2,11 +2,24 @@
   flex: 1 1 auto;
 }
 
-.mat-toolbar{
-  background-color: rgba(128, 128, 128, 0.66);
-  height: 50px;
-  color: white;
-  font-size: larger;
-  font-weight: bold;
+table{
+  width: 50%;
+  margin: 20px;
 }
 
+th,td{
+  width: 20%;
+  padding: 10px;
+}
+
+.header-row {
+  background-color: darkslategrey;
+  width: 20%;
+}
+
+.header-cell{
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  font-size: large;
+}

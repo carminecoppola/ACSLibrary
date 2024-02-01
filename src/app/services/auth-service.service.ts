@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {User} from "../components/User";
 import {find} from "rxjs";
-import {USERS} from "../mockUser";
+import {USERS} from "../mock/mockUser";
 
 @Injectable({
   providedIn: 'root'
