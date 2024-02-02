@@ -1,7 +1,3 @@
-.example-spacer {
-  flex: 1 1 auto;
-}
-
 table{
   width: 50%;
   margin: 20px;
@@ -23,3 +19,17 @@ th,td{
   text-align: center;
   font-size: large;
 }
+
+.content-cell{
+  text-align: center;
+}
+
+.mdc-data-table__table {
+  min-width: 80%;
+  border: 0;
+  white-space: nowrap;
+  border-spacing: 0;
+  table-layout: fixed;
+  margin: 50px auto 0; /* Imposta il margine automatico per centrare la tabella */
+}
+

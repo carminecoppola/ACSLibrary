@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from "../../services/auth-service.service";
 import { Router } from "@angular/router";
 import { BookService } from "../../services/book.service";
@@ -12,27 +12,37 @@ import { Book } from "../Book";
 export class LibraryListComponent implements OnInit {
   title = 'LibraryProject';
 
-  displayedColumns: string[] = [ 'title', 'author', 'dateOfPublication', 'genre'];
+  displayedColumns: string[] = ['title', 'author', 'dateOfPublication', 'genre', 'action'];
   allBooks: Book[] = [];
+  editingBook: Book | undefined;
+
   constructor(private bookService: BookService, private authService: AuthServiceService, private router: Router) {}
 
   ngOnInit() {
+    // Inizializzazione al caricamento del componente
     this.getAllBooks();
+    this.editingBook = this.bookService.editingBook; // inizializzazione di editingBook
   }
 
-  logout() {
-    console.log('Logout');
-    this.authService.logout();
-    this.router.navigate(['/login']);
-  }
-
-  // Richiamo il metodo del mio BookService per avere tutti i libri a disposizione
+  // Ottieni tutti i libri dal servizio e aggiorna la lista locale
   getAllBooks() {
     console.log('List of Books');
     this.allBooks = this.bookService.getBook();
     console.log(this.allBooks);
   }
 
+  // Avvia la modifica di un libro richiamando il servizio
+  editBook(bookId: number) {
+    this.editingBook = this.bookService.editBook(bookId);
+  }
 
+  // Elimina un libro richiamando il servizio
+  deleteBook(bookId: number) {
+    this.bookService.deleteBook(bookId);
+  }
 
+  // Completa la modifica di un libro richiamando il servizio
+  onEditComplete(){
+    this.bookService.onEditComplete();
+  }
 }

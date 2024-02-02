@@ -12,24 +12,26 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgOptimizedImage } from "@angular/common";
 import { MatListModule } from '@angular/material/list';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LibraryListComponent } from './components/library-list/library-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import {provideRouter} from "@angular/router";
 import {MatTableModule} from "@angular/material/table";
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LibraryListComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, AppRoutingModule,
     MatToolbarModule, MatIconModule, MatButtonModule, MatListModule, MatInputModule,
-    MatFormFieldModule, MatTableModule, NgOptimizedImage, ReactiveFormsModule,
+    MatFormFieldModule, MatTableModule, NgOptimizedImage, ReactiveFormsModule, FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

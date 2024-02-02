@@ -1,0 +1,31 @@
+<nav>
+  <mat-toolbar>
+    <span>
+      <mat-icon class="custom-logo">
+        <img src="assets/book-open.svg" alt="book-icon">
+      </mat-icon>
+      {{ title }}
+    </span>
+    <span class="example-spacer"></span>
+    <ng-container *ngIf="!isLoggedIn; else otherPages">
+      <button mat-icon-button class="example-icon">
+        <mat-icon>group</mat-icon>
+      </button>
+      <button mat-icon-button class="example-icon">
+        <mat-icon>help</mat-icon>
+      </button>
+    </ng-container>
+    <ng-template #otherPages>
+      <!-- Elementi da mostrare quando loggato -->
+      <button mat-icon-button class="example-icon">
+        <mat-icon>home</mat-icon>
+      </button>
+      <button mat-icon-button class="example-icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <button mat-icon-button class="example-icon" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </ng-template>
+  </mat-toolbar>
+</nav>
