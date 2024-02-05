@@ -58,8 +58,11 @@ export class LibraryListComponent implements OnInit {
    * @param codISBM Codice ISBM del libro da modificare
    */
   editBook(codISBM: number) {
+    // Aggiorna il libro attualmente in fase di modifica nel servizio
     this.bookService.setEditingBookByCodISBM(codISBM);
-    this.router.navigate(['/ebook']);
+    // Naviga alla pagina di modifica includendo il codice ISBM come parametro nella query dell'URL
+    this.router.navigate(['/ebook'], {queryParams: {codISBM: codISBM}});
+
   }
 
   /**
