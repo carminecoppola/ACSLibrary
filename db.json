@@ -1,0 +1,57 @@
+{
+  "users":[
+    {"username": "carmine", "password": "123"},
+    {"username": "giovanni", "password": "234"}
+  ],
+  "books": [
+    {
+      "codISBM": 9780545010221,
+      "title": "Harry Potter and the Philosopher's Stone",
+      "author": "J.K. Rowling",
+      "dateOfPublication": "1997-06-26",
+      "genre": "Fantasy"
+    },
+    {
+      "codISBM": 9780061120084,
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "dateOfPublication": "1960-07-11",
+      "genre": "Fiction"
+    },
+    {
+      "codISBM": 9780743273565,
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "dateOfPublication": "1925-04-10",
+      "genre": "Classic"
+    },
+    {
+      "codISBM": 9780140283334,
+      "title": "1984",
+      "author": "George Orwell",
+      "dateOfPublication": "1949-06-08",
+      "genre": "Dystopian"
+    },
+    {
+      "codISBM": 9780062315007,
+      "title": "The Fault in Our Stars",
+      "author": "John Green",
+      "dateOfPublication": "2012-01-10",
+      "genre": "Young Adult"
+    },
+    {
+      "codISBM": 9788804486629,
+      "title": "I promessi sposi",
+      "author": "Alessandro Manzoni",
+      "dateOfPublication": "1827-07-15",
+      "genre": "Romanzo storico"
+    },
+    {
+      "codISBM": 9788806149565,
+      "title": "Gomorra",
+      "author": "Roberto Saviano",
+      "dateOfPublication": "2006-11-01",
+      "genre": "Saggio"
+    }
+  ]
+}

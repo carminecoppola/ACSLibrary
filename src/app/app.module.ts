@@ -21,6 +21,7 @@ import {MatTableModule} from "@angular/material/table";
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EditBookComponent } from './components/edit-book/edit-book.component';
 import {MatCardModule} from "@angular/material/card";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {MatCardModule} from "@angular/material/card";
         BrowserModule, BrowserAnimationsModule, AppRoutingModule,
         MatToolbarModule, MatIconModule, MatButtonModule, MatListModule, MatInputModule,
         MatFormFieldModule, MatTableModule, NgOptimizedImage, ReactiveFormsModule, FormsModule, MatCardModule,
+        HttpClientModule
     ],
   providers: [],
   bootstrap: [AppComponent]

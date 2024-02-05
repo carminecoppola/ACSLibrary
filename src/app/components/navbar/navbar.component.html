@@ -1,10 +1,14 @@
 <nav>
   <mat-toolbar>
-    <span>
+    <span class="center-content">
+      <button mat-icon-button class="arrow-icon" *ngIf="showBackButton" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
       <mat-icon class="custom-logo">
-        <img src="assets/book-open.svg" alt="book-icon">
       </mat-icon>
-      {{ title }}
+      <img src="assets/book-open.svg" class="custom-logo" alt="book-icon">
+      <span class="navbar-title">{{ title }}</span>
     </span>
     <span class="example-spacer"></span>
     <ng-container *ngIf="!isLoggedIn; else otherPages">
@@ -15,15 +19,16 @@
         <mat-icon>help</mat-icon>
       </button>
     </ng-container>
+
     <ng-template #otherPages>
       <!-- Elementi da mostrare quando loggato -->
-      <button mat-icon-button class="example-icon">
+      <button mat-icon-button class="button-action">
         <mat-icon>home</mat-icon>
       </button>
-      <button mat-icon-button class="example-icon">
+      <button mat-icon-button class="button-action">
         <mat-icon>menu</mat-icon>
       </button>
-      <button mat-icon-button class="example-icon" (click)="logout()">
+      <button mat-icon-button class="button-action" (click)="logout()">
         <mat-icon>logout</mat-icon>
       </button>
     </ng-template>
