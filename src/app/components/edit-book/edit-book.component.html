@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+
+<div class="containerEdit">
+  <div class="edit-header">
+    Edit Form
+  </div>
+  <form [formGroup]="editBookForm" (ngSubmit)="editBook()" class="form-field">
+    <div class="containerInput">
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Author</mat-label>
+          <input matInput formControlName="author">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Date of Publication</mat-label>
+          <input matInput formControlName="dateOfPublication">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Genre</mat-label>
+          <input matInput formControlName="genre">
+        </mat-form-field>
+      </p>
+      <div class="example-button-row">
+        <button mat-raised-button type="submit" ><!-- [disabled]="!loginForm.valid"-->
+          Complete Edit
+          <mat-icon matSuffix>login</mat-icon>
+        </button>
+
+      </div>
+    </div>
+  </form>
+</div>

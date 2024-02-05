@@ -19,6 +19,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import {provideRouter} from "@angular/router";
 import {MatTableModule} from "@angular/material/table";
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { EditBookComponent } from './components/edit-book/edit-book.component';
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -26,13 +28,14 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     LoginComponent,
     LibraryListComponent,
     PageNotFoundComponent,
-    NavbarComponent
+    NavbarComponent,
+    EditBookComponent
   ],
-  imports: [
-    BrowserModule, BrowserAnimationsModule, AppRoutingModule,
-    MatToolbarModule, MatIconModule, MatButtonModule, MatListModule, MatInputModule,
-    MatFormFieldModule, MatTableModule, NgOptimizedImage, ReactiveFormsModule, FormsModule,
-  ],
+    imports: [
+        BrowserModule, BrowserAnimationsModule, AppRoutingModule,
+        MatToolbarModule, MatIconModule, MatButtonModule, MatListModule, MatInputModule,
+        MatFormFieldModule, MatTableModule, NgOptimizedImage, ReactiveFormsModule, FormsModule, MatCardModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

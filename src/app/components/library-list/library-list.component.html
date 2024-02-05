@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-<div *ngIf="!editingBook;  else editForm">
+<div *ngIf="!editingBook">
   <table *ngIf="allBooks && allBooks.length" mat-table [dataSource]="allBooks" class="mat-elevation-z8">
     <!-- title Column -->
     <ng-container matColumnDef="title" >
@@ -30,7 +30,7 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef class="header-cell"> Action </th>
       <td mat-cell *matCellDef="let element" class="content-cell">
-        <button (click)="editBook(element.codISBM)">
+        <button (click)="editBook(element.codISBM)" routerLink="/ebook">
           <mat-icon>
             <img src="assets/editIcon.svg" alt="delete icon">
           </mat-icon>
@@ -46,25 +46,16 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <div class="example-button-container">
+    <button mat-fab class="mat-fab-button" (click)="addNewBook()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 </div>
 
-<ng-template #editForm>
-  <div *ngIf="editingBook">
-    <!-- Form di modifica per il singolo libro -->
-    <form (ngSubmit)="onEditComplete()">
-      <label>Title: </label>
-      <input [(ngModel)]="editingBook.title" name="title" required>
-      <br>
-      <label>Author: </label>
-      <input [(ngModel)]="editingBook.author" name="author" required>
-      <br>
-      <label>Date of Publication: </label>
-      <input [(ngModel)]="editingBook.dateOfPublication" name="dateOfPublication" required>
-      <br>
-      <label>Genre: </label>
-      <input [(ngModel)]="editingBook.genre" name="genre" required>
-      <br>
-      <button type="submit">Save Changes</button>
-    </form>
-  </div>
-</ng-template>
+
+<div *ngIf="showSuccessMessage" class="success-message">
+  Book added successfully!<br>
+  Details: {{ allBooks[allBooks.length - 1]?.title }}, {{ allBooks[allBooks.length - 1]?.author }}, {{ allBooks[allBooks.length - 1]?.dateOfPublication }}, {{ allBooks[allBooks.length - 1]?.genre }}
+</div>

@@ -33,3 +33,8 @@ th,td{
   margin: 50px auto 0; /* Imposta il margine automatico per centrare la tabella */
 }
 
+.mat-fab-button {
+  background-color: #48a655;
+
+}
+
