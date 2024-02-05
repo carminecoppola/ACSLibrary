@@ -1,3 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-container {
+  border: 5px solid darkslategrey;
+  background-color: #cdcbcb8a;
+  border-radius: 15px;
+  margin: 40px;
+}
+
+.table-header {
+  background-color: #2b4949;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  font-size: medium;
+}
+
+.table-header h2 {
+  margin: 0;
+}
+
 table{
   width: 50%;
   margin: 20px;
@@ -30,11 +55,25 @@ th,td{
   white-space: nowrap;
   border-spacing: 0;
   table-layout: fixed;
-  margin: 50px auto 0; /* Imposta il margine automatico per centrare la tabella */
+  margin: 5px auto 10px;
 }
 
 .mat-fab-button {
   background-color: #48a655;
-
+  width: 30px;
+  height: 30px;
 }
 
+.containerAdd-button {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 110px auto auto; /* In questo modo è allineata sullo spigolo in alto a destra della tabella */
+}
+
+
+.success-message{
+  margin: 20px auto 5px 10px;
+  color: green;
+  font-weight: bolder;
+
+}
