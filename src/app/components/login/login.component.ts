@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from "../../services/auth-service.service";
 import { HttpClient } from "@angular/common/http";
+import {User} from "../User";
 
 /**
  * Componente per la gestione della pagina di login.
@@ -48,24 +49,24 @@ export class LoginComponent {
   submitForm() {
     const { username, password } = this.loginForm.value;
 
-    // Effettua una chiamata al metodo loginUser del servizio AuthServiceService, che restituisce un Observable booleano.
-    // L'observable restituisce true se il login ha successo, altrimenti restituisce false.
-    // Si sottoscrive l'observable per gestire il risultato.
-    this.authService.loginUser(username, password).subscribe({
-      next: (loggedIn) => {
-        if (loggedIn) {
-          // Se il login ha avuto successo, reindirizza l'utente alla pagina LibraryListComponent.
-          this.router.navigate(['/library']);
-        }
-        else {
-          this.messageError = this.authService.getAuthenticationError();
-        }
-      },
-      error: (error) => {
-        // Se si verifica un errore durante il login, visualizza il messaggio di errore restituito dal servizio di autenticazione.
+    this.authService.getUsers().subscribe({
+        next: (res) => {
+          console.log("Prova getUser: ",res)
 
+          const findUser = res.find((user:User) => user.username === username && user.password === password) //riguarda op. su array in JS
+          console.log("find user", findUser)
+
+          if (findUser){
+            this.authService.userData = findUser;
+            this.router.navigate(['/library']);
+          }else{
+            this.messageError = "Invalid Credentials";
+          }
+
+        }
       }
-    });
+    )
+
   }
 
 }

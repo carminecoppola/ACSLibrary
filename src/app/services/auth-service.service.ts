@@ -14,12 +14,12 @@ export class AuthServiceService {
   /**
    * Variabile che tiene traccia dello stato dell'utente loggato.
    */
-  private userData: User | null = null;
+  userData: User | null = null;
 
   /**
    * Variabile per memorizzare eventuali messaggi di errore durante l'autenticazione.
    */
-  private authenticationError: string | null = null;
+  authenticationError: string | null = null;
 
   constructor(private http: HttpClient) { }
 
@@ -30,7 +30,9 @@ export class AuthServiceService {
    * @returns Un Observable che emette true se il login ha avuto successo, altrimenti false.
    * @catchError Gestisce la situazione in cui le credenziali non sono valide
    */
-  loginUser(username: string | null | undefined, password: string | null | undefined): Observable<boolean> {
+
+  /*
+  loginUser(username: string , password: string ): Observable<boolean> {
     /**
      * Effettua una richiesta HTTP per recuperare l'utente corrispondente dal JSON Server.
      *  La chiamata include anche i parametri username e password nella query per
@@ -39,8 +41,10 @@ export class AuthServiceService {
      *  dalla chiamata HTTP.
      *  map viene utilizzato per trasformare la risposta della chiamata HTTP.
      *  Riceve un array di utenti (users) e controlla se l'array non è vuoto.
-     * */
+     *
 
+
+    //rivedi
     return this.http.get<User[]>(`http://localhost:3000/users?username=${username}&password=${password}`).pipe(
       map(users => {
         if (users.length > 0) {
@@ -58,7 +62,14 @@ export class AuthServiceService {
         return of(false);
       })
     );
+  }*/
+
+
+  getUsers(): Observable<any>{
+    //return un observable di user
+    return this.http.get('http://localhost:3000/users')
   }
+
 
   /**
    * Verifica se l'utente è attualmente autenticato.
@@ -69,19 +80,10 @@ export class AuthServiceService {
   }
 
   /**
-   * Restituisce eventuali messaggi di errore durante l'autenticazione.
-   * @returns Il messaggio di errore o NULL se non ci sono errori.
-   */
-  getAuthenticationError(): string | null {
-    return this.authenticationError;
-  }
-
-  /**
    * Effettua il logout resettando le informazioni sull'utente e gli eventuali messaggi di errore.
    */
   logout() {
     this.userData = null;
-    this.authenticationError = null;
   }
 
 }
