@@ -1,5 +1,5 @@
 export interface Book {
-  codISBM: number;
+  codISBN: number;
   title: string;
   author: string;
   dateOfPublication: string;

@@ -13,7 +13,8 @@
         <mat-icon>add</mat-icon>
       </button>
     </div>
-    <table *ngIf="allBooks && allBooks.length" mat-table [dataSource]="allBooks" class="mat-elevation-z8">
+    <!-- *ngIf="allBooks && allBooks.length" mat-table [dataSource]="allBooks" -->
+    <table mat-table [dataSource]="allBooks" class="mat-elevation-z8">
       <!-- title Column -->
       <ng-container matColumnDef="title" >
         <th mat-header-cell *matHeaderCellDef class="header-cell"> Book </th>
@@ -42,12 +43,13 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef class="header-cell"> Action </th>
         <td mat-cell *matCellDef="let element" class="content-cell">
-          <button (click)="editBook(element.codISBM)" routerLink="/ebook">
+          <!-- (click)="editBook(element.codISBN)" -->
+          <button routerLink="/ebook">
             <mat-icon>
               <img src="assets/editIcon.svg" alt="delete icon">
             </mat-icon>
           </button>
-          <button (click)="deleteBook(element.codISBM)">
+          <button>
             <mat-icon>
               <img src="assets/trashIcon.svg" alt="delete icon">
             </mat-icon>
@@ -56,13 +58,14 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let element; let i = index; columns: displayedColumns;"
+          [ngClass]="{'alternate-row': i % 2 == 0}">
     </table>
 
-    <div *ngIf="showSuccessMessage" class="success-message">
+    <!--<div *ngIf="showSuccessMessage" class="success-message">
       Book added successfully!<br>
       Dettagli: {{ allBooks[allBooks.length - 1].title }}, {{ allBooks[allBooks.length - 1].author }}, {{ allBooks[allBooks.length - 1].dateOfPublication }}, {{ allBooks[allBooks.length - 1].genre }}
-    </div>
+    </div>-->
 
   </div>
 </div>

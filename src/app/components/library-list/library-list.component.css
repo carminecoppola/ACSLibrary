@@ -77,3 +77,15 @@ th,td{
   font-weight: bolder;
 
 }
+
+.alternate-row {
+  font-weight: bold;
+}
+
+.alternate-row:nth-child(even) {
+  background-color: red;
+}
+
+.alternate-row:nth-child(odd) {
+  background-color: rgba(80, 80, 80, 0.49);
+}

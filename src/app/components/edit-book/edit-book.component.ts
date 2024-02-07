@@ -36,7 +36,7 @@ export class EditBookComponent implements OnInit {
       const codISBM = +params['codISBM']; // Il "+" converte la stringa in un numero
       console.log("Sono qui", codISBM)
       // Imposta il libro in fase di modifica nel servizio
-      this.bookService.setEditingBookByCodISBM(codISBM);
+      //this.bookService.setEditingBookByCodISBN(codISBM);
       console.log("book: ",this.bookService.editingBook)
     });
 
@@ -73,7 +73,7 @@ export class EditBookComponent implements OnInit {
     if (this.editBookForm.valid && this.editingBook) {
       // Effettua le modifiche necessarie al libro utilizzando i dati dal formulario
       const updatedBook: Book = {
-        codISBM: this.editingBook.codISBM,
+        codISBN: this.editingBook.codISBN,
         title: this.editBookForm.value.title,
         author: this.editBookForm.value.author,
         dateOfPublication: this.editBookForm.value.dateOfPublication,
@@ -81,23 +81,12 @@ export class EditBookComponent implements OnInit {
       };
 
       // Chiama il servizio per aggiornare il libro
-      this.bookService.updateBook(updatedBook);
+      //this.bookService.updateBook(updatedBook);
 
       // Naviga indietro alla lista dei libri dopo la modifica
       this.location.back();
     } else {
       // Gestisce il caso in cui il form non è valido
     }
-  }
-
-  /**
-   * @description Elimina il libro e naviga indietro alla lista dei libri.
-   */
-  deleteBook() {
-    // Chiama il servizio per eliminare il libro
-    this.bookService.deleteBook(this.editingBook?.codISBM || 0);
-
-    // Naviga indietro alla lista dei libri dopo l'eliminazione
-    this.router.navigate(['/library']);
   }
 }

@@ -3,10 +3,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from "../../services/auth-service.service";
 import { HttpClient } from "@angular/common/http";
-import {User} from "../User";
+import { User } from "../User";
 
 /**
- * Componente per la gestione della pagina di login.
+ * Questo componente gestisce la pagina di login dell'applicazione.
  */
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ import {User} from "../User";
 export class LoginComponent {
 
   /**
-   * Form di login con campi per username e password.
+   * Form per il login che contiene campi per l'username e la password.
    */
   loginForm = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -24,49 +24,47 @@ export class LoginComponent {
   });
 
   /**
-   * Variabile per memorizzare eventuali messaggi di errore durante il login.
+   * Variabile utilizzata per memorizzare eventuali messaggi di errore durante il processo di login.
    */
   messageError: string | null = null;
 
   /**
    * Costruttore del componente.
-   * @param router Servizio di routing per la navigazione tra le pagine.
+   * @param router Servizio di routing per la navigazione tra le pagine dell'applicazione.
    * @param authService Servizio di autenticazione per gestire le operazioni di login.
-   * @param http Servizio HttpClient per effettuare richieste HTTP.
    */
   constructor(
     private router: Router,
     private authService: AuthServiceService,
-    private http: HttpClient,
   ) {}
 
   /**
-   * Gestisce l'invio del form di login.
-   * Effettua una chiamata al Servizio di Autenticazione per effettuare il login utilizzando i dati forniti nel form.
-   * Se il login ha successo, reindirizza l'utente alla pagina LibraryListComponent (next).
-   * Se il login fallisce, visualizza il messaggio di errore restituito dal Servizio di Autenticazione (error).
+   * Questo metodo gestisce l'invio del form di login.
+   * Effettua una chiamata al servizio di autenticazione per effettuare il login utilizzando i dati forniti nel form.
+   * Se il login ha successo, reindirizza l'utente alla pagina LibraryListComponent.
+   * Se il login fallisce, visualizza un messaggio di errore.
    */
   submitForm() {
     const { username, password } = this.loginForm.value;
 
     this.authService.getUsers().subscribe({
-        next: (res) => {
-          console.log("Prova getUser: ",res)
+      next: (res) => {
+        console.log("Prova getUser: ", res);
+        // Cerca l'utente nel risultato della chiamata al servizio di autenticazione.
+        const findUser = res.find((user: User) => user.username === username && user.password === password);
+        console.log("Utente trovato", findUser);
 
-          const findUser = res.find((user:User) => user.username === username && user.password === password) //riguarda op. su array in JS
-          console.log("find user", findUser)
-
-          if (findUser){
-            this.authService.userData = findUser;
-            this.router.navigate(['/library']);
-          }else{
-            this.messageError = "Invalid Credentials";
-          }
-
+        if (findUser) {
+          // Se l'utente è trovato, memorizza i suoi dati e reindirizza alla pagina Library.
+          this.authService.userData = findUser;
+          this.router.navigate(['/library']);
+        } else {
+          // Se l'utente non è trovato, imposta un messaggio di errore.
+          this.messageError = "Credenziali non valide";
         }
       }
-    )
-
+    });
   }
+
 
 }
