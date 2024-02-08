@@ -22,6 +22,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { EditBookComponent } from './components/edit-book/edit-book.component';
 import {MatCardModule} from "@angular/material/card";
 import {HttpClientModule} from "@angular/common/http";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import {HttpClientModule} from "@angular/common/http";
         BrowserModule, BrowserAnimationsModule, AppRoutingModule,
         MatToolbarModule, MatIconModule, MatButtonModule, MatListModule, MatInputModule,
         MatFormFieldModule, MatTableModule, NgOptimizedImage, ReactiveFormsModule, FormsModule, MatCardModule,
-        HttpClientModule
+        HttpClientModule, MatProgressSpinnerModule
     ],
   providers: [],
   bootstrap: [AppComponent]

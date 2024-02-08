@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthServiceService } from "../../services/auth-service.service";
 import { Router } from "@angular/router";
 import { BookService } from "../../services/book.service";
 import { Book } from "../Book";
-import {User} from "../User";
+import { Subscription } from "rxjs";
+import { PageStatus } from "../pageStatus";
 
 /**
  * Componente principale per la visualizzazione della lista dei libri.
@@ -13,7 +14,7 @@ import {User} from "../User";
   templateUrl: './library-list.component.html',
   styleUrls: ['./library-list.component.css']
 })
-export class LibraryListComponent implements OnInit {
+export class LibraryListComponent implements OnInit, OnDestroy {
 
   // Array di stringhe che rappresentano le colonne da visualizzare nella tabella
   displayedColumns: string[] = ['title', 'author', 'dateOfPublication', 'genre', 'action'];
@@ -25,6 +26,13 @@ export class LibraryListComponent implements OnInit {
 
   // Variabile per mostrare/nascondere il messaggio di successo
   showSuccessMessage: boolean = false;
+
+  // Variabile per capire quando è stata effettuata la subscription
+  subscription: Subscription | null = null;
+
+  // Variabile per lo stato della pagina
+  public pageStatus: PageStatus = PageStatus.loading; // Inizializzo a loading
+
 
   /**
    * Costruttore del componente.
@@ -39,28 +47,50 @@ export class LibraryListComponent implements OnInit {
    * Richiama il metodo per ottenere tutti i libri.
    */
   ngOnInit() {
-    this.getAllBooks();
+    // Simula il caricamento dei dati dopo 3 secondi
+    setTimeout(() => {
+      this.getAllBooks();
+    }, 3000);
+
+
     this.editingBook = this.bookService.editingBook;
+    console.log("costruttore pagina stato ", this.pageStatus);
+  }
+
+  /**
+   * Metodo di distruzione del componente, serve soprattutto a terminare le subscribe
+   * */
+  ngOnDestroy(){
+    //this.bookService.getBooks().unsubscribe()
+    this.subscription?.unsubscribe()
   }
 
   /**
    * Ottiene tutti i libri dal servizio e aggiorna la lista locale.
    */
   getAllBooks() {
-    //this.allBooks = this.bookService.getBook();
-    //console.log("List of Books:",this.allBooks);
+    console.log("Page Status fuori ", this.pageStatus);
+    this.pageStatus = PageStatus.loading; // Imposto di nuovo a loading per permettere l'aggiornamento della variabile ogni volta
+    console.log("dopo fuori ", this.pageStatus);
 
-    // Array contenente tutti i libri
-
-
-    this.bookService.getBooks().subscribe({
+    this.subscription= this.bookService.getBooks().subscribe({
       next: (res) =>{
-        console.log("Prova getBook: ",res);
-        this.allBooks = res;
+        this.pageStatus = PageStatus.loaded; // Pagina in loaded poichè è stata caricata correttamente
+        console.log("Page Status Next: ", this.pageStatus);
+        this.allBooks = [...res]; //Spread operator
         console.log("Prova allBooks: ", this.allBooks);
+
+      },
+      error: (err) =>{
+        this.pageStatus = PageStatus.error; // Pagina in error
+        console.warn("Error in this page:", this.pageStatus);
       }
     })
 
+  }
+
+  reloadPage() {
+    window.location.reload(); // funzione JS che ricarica la pagina corrente.
   }
 
 
@@ -97,4 +127,6 @@ export class LibraryListComponent implements OnInit {
     this.getAllBooks(); // Aggiorna la lista dopo l'aggiunta
     this.showSuccessMessage = true; // Mostra il messaggio di successo
   }
+
+  protected readonly PageStatus = PageStatus;
 }

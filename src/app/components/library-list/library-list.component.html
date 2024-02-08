@@ -1,6 +1,20 @@
 <app-navbar></app-navbar>
 
-<div *ngIf="!editingBook" class="container">
+<div  *ngIf="pageStatus === PageStatus.loading" class="container">
+  <div class="table-container">
+    <div class="table-header">
+      <h2>List of Book</h2>
+      <p>Here are the books available in our library</p>
+    </div>
+    <p class="loading-p">
+      Please wait for the books to load, it will take a moment.
+    </p>
+    <mat-spinner class="loading-page"></mat-spinner>
+  </div>
+</div>
+
+
+<div *ngIf="pageStatus === PageStatus.loaded" class="container">
 
   <div class="table-container">
     <div class="table-header">
@@ -67,6 +81,28 @@
       Dettagli: {{ allBooks[allBooks.length - 1].title }}, {{ allBooks[allBooks.length - 1].author }}, {{ allBooks[allBooks.length - 1].dateOfPublication }}, {{ allBooks[allBooks.length - 1].genre }}
     </div>-->
 
+  </div>
+</div>
+
+
+<div *ngIf="pageStatus === PageStatus.error" class="container">
+  <div class="table-container">
+    <div class="table-header">
+      <h2>List of Book</h2>
+      <p>Here are the books available in our library</p>
+    </div>
+
+    <div class="error-message">
+      <mat-icon matSuffix>sentiment_very_dissatisfied</mat-icon>
+      <p>
+        Oops, an error occurred while loading the books,<br>
+        please try reloading the page.
+      </p>
+      <button mat-raised-button type="button" (click)="reloadPage()">
+        Reload page
+        <mat-icon matSuffix>refresh</mat-icon>
+      </button>
+    </div>
   </div>
 </div>
 

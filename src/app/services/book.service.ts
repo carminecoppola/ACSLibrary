@@ -23,6 +23,7 @@ export class BookService {
   /**
    * Ottiene tutti i libri dal mock.
    * @returns Un Observable che ci fornisce un array di libri.
+   * //Guarda il concetto di any
    */
   getBooks(): Observable<any> {
     return this.http.get('http://localhost:3000/books');
