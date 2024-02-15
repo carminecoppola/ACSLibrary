@@ -1,60 +1,76 @@
 {
-  "users":[
-    {"username": "carmine", "password": "123"},
-    {"username": "giovanni", "password": "234"}
+  "users": [
+    {
+      "username": "carmine",
+      "password": "123",
+      "id": "1"
+    },
+    {
+      "username": "giovanni",
+      "password": "234",
+      "id": "2"
+    }
   ],
   "books": [
     {
-      "codISBM": 9780545010221,
+      "codISBN": 9780061134084,
+      "id": "1",
       "title": "Harry Potter and the Philosopher's Stone",
       "author": "J.K. Rowling",
-      "dateOfPublication": "1997-06-26",
+      "dateOfPublication": "1997-06-27",
       "genre": "Fantasy"
     },
     {
-      "codISBM": 9780061120084,
+      "id": "2",
+      "codISBN": 9780061120084,
       "title": "To Kill a Mockingbird",
       "author": "Harper Lee",
       "dateOfPublication": "1960-07-11",
       "genre": "Fiction"
     },
     {
-      "codISBM": 9780743273565,
+      "id": "3",
+      "codISBN": 9780743273565,
       "title": "The Great Gatsby",
       "author": "F. Scott Fitzgerald",
       "dateOfPublication": "1925-04-10",
       "genre": "Classic"
     },
     {
-      "codISBM": 9780140283334,
+      "id": "4",
+      "codISBN": 9780140283334,
       "title": "1984",
       "author": "George Orwell",
       "dateOfPublication": "1949-06-08",
       "genre": "Dystopian"
     },
     {
-      "codISBM": 9780062315007,
+      "id": "5",
+      "codISBN": 9780062315007,
       "title": "The Fault in Our Stars",
       "author": "John Green",
       "dateOfPublication": "2012-01-10",
       "genre": "Young Adult"
     },
     {
-      "codISBM": 9788804486629,
+      "id": "6",
+      "codISBN": 9788804486629,
       "title": "I promessi sposi",
       "author": "Alessandro Manzoni",
       "dateOfPublication": "1827-07-15",
       "genre": "Romanzo storico"
     },
     {
-      "codISBM": 9788806149565,
+      "id": "7",
+      "codISBN": 9788806149565,
       "title": "Gomorra",
       "author": "Roberto Saviano",
       "dateOfPublication": "2006-11-01",
       "genre": "Saggio"
     },
     {
-      "codISBM": 9788804666784,
+      "id": "8",
+      "codISBN": 9788804666784,
       "title": "La solitudine dei numeri primi",
       "author": "Paolo Giordano",
       "dateOfPublication": "2008-09-04",

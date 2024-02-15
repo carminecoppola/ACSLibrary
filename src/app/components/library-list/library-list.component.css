@@ -82,9 +82,9 @@ tr.alternate-row{
   background-color: #e0e0e0;
 }
 
-tr.alternate-row td {
+/*tr.alternate-row td {
   font-weight: bold;
-}
+}*/
 
 
 /*Error status*/

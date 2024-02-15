@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent{
 
   /** Titolo visualizzato nella navbar. */
   title = 'ACLibrary';
@@ -28,14 +28,18 @@ export class NavbarComponent {
    * @param router Oggetto per la navigazione tra le pagine.
    * @param location Servizio per gestire la localizzazione (navigazione all'indietro).
    */
-  constructor(private authService: AuthServiceService, private router: Router, private location: Location) {
-    // Sottoscrizione agli eventi di navigazione per gestire la visibilità della freccia
-    router.events.subscribe((event) => {
+  constructor(
+    private authService: AuthServiceService,
+    private router: Router,
+    private location: Location
+  ) {
+    /*// Sottoscrizione agli eventi di navigazione per gestire la visibilità della freccia
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // Aggiorna il flag per mostrare o nascondere la freccia in base alla pagina corrente
         this.showBackButton = this.router.url !== '/login';
       }
-    });
+    });*/
   }
 
   /**
@@ -51,6 +55,8 @@ export class NavbarComponent {
    * Torna alla pagina precedente.
    */
   goBack() {
+    this.showBackButton = true;
     this.location.back();
+    this.showBackButton = false;
   }
 }

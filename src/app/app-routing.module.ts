@@ -9,10 +9,10 @@ import {EditBookComponent} from "./components/edit-book/edit-book.component";
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  //{ path: 'library', component: LibraryListComponent, canActivate:[AuthGuardGuard] },
-  //{ path: 'ebook', component: EditBookComponent, canActivate:[AuthGuardGuard] },
-  { path: 'library', component: LibraryListComponent },
-  { path: 'ebook', component: EditBookComponent },
+  { path: 'library', component: LibraryListComponent, canActivate:[AuthGuardGuard] },
+  { path: 'edit-book', component: EditBookComponent, canActivate:[AuthGuardGuard] },
+  //{ path: 'library', component: LibraryListComponent },
+  //{ path: 'edit-book', component: EditBookComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
 

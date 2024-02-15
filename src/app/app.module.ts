@@ -23,6 +23,8 @@ import { EditBookComponent } from './components/edit-book/edit-book.component';
 import {MatCardModule} from "@angular/material/card";
 import {HttpClientModule} from "@angular/common/http";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -31,14 +33,14 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     LibraryListComponent,
     PageNotFoundComponent,
     NavbarComponent,
-    EditBookComponent
+    EditBookComponent,
   ],
-    imports: [
-        BrowserModule, BrowserAnimationsModule, AppRoutingModule,
-        MatToolbarModule, MatIconModule, MatButtonModule, MatListModule, MatInputModule,
-        MatFormFieldModule, MatTableModule, NgOptimizedImage, ReactiveFormsModule, FormsModule, MatCardModule,
-        HttpClientModule, MatProgressSpinnerModule
-    ],
+  imports: [
+    BrowserModule, BrowserAnimationsModule, AppRoutingModule,
+    MatToolbarModule, MatIconModule, MatButtonModule, MatListModule, MatInputModule,
+    MatFormFieldModule, MatTableModule, NgOptimizedImage, ReactiveFormsModule, FormsModule, MatCardModule,
+    HttpClientModule, MatProgressSpinnerModule, MatSnackBarModule, MatSelectModule,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
