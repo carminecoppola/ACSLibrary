@@ -25,6 +25,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatSelectModule} from "@angular/material/select";
+import { AddBookComponent } from './add-book/add-book.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {MatSelectModule} from "@angular/material/select";
     PageNotFoundComponent,
     NavbarComponent,
     EditBookComponent,
+    AddBookComponent,
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, AppRoutingModule,
