@@ -25,7 +25,17 @@ export class BookService {
    * @returns Un Observable che indica l'avvenuto aggiornamento del libro.
    */
   public updateBookInfo(updatedBook: Book): Observable<any> {
-    console.log('Aggiornamento libro', updatedBook);
     return this.http.put(`http://localhost:3000/books/${updatedBook.id}`, updatedBook);
   }
+
+  /**
+   * Effettua una richiesta HTTP di tipo POST per effettuare la creazione
+   * di un nuovo libro.
+   * @param addBook è il libro creato.
+   * @returns Un Observable che indica l'avvenuta creazione del libro.
+   */
+  public createdBook(addBook: Book):Observable<any>{
+    return this.http.post('http://localhost:3000/books', addBook);
+  }
+
 }

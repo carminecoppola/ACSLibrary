@@ -1,6 +1,3 @@
-/**
- * Componente per la modifica dei dettagli di un libro.
- */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookService } from '../../services/book.service';
@@ -58,7 +55,7 @@ export class EditBookComponent implements OnInit, OnDestroy {
    * Hook di ciclo di vita per disiscriversi dagli observable quando il componente viene distrutto.
    */
   ngOnDestroy(){
-    this.subscription?.unsubscribe()
+    this.subscription?.unsubscribe();
   }
 
   /**
@@ -147,8 +144,8 @@ export class EditBookComponent implements OnInit, OnDestroy {
     this.completed = false;
 
     const updatedBook: Book = {
-      codISBN: this.editBookForm.value.codISBN,
       id: this.editBookForm.value.id,
+      codISBN: this.editBookForm.value.codISBN,
       title: this.editBookForm.value.title,
       author: this.editBookForm.value.author,
       dateOfPublication: this.editBookForm.value.dateOfPublication,
@@ -157,11 +154,10 @@ export class EditBookComponent implements OnInit, OnDestroy {
 
     this.subscription = this.bookService.updateBookInfo(updatedBook).subscribe({
       next: (res) => {
-        this.completed = false;
         this.updatedBook = res;
 
         if (updatedBook) {
-          console.log("Libro aggiornato con successo", res);
+          console.log("Libro aggiornato con successo", this.updatedBook);
           this.completed = true;
 
           if (this.completed) {

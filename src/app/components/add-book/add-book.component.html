@@ -1,34 +1,32 @@
 <app-navbar></app-navbar>
 
-<div  *ngIf="pageStatus === PageStatus.loading">
+<div *ngIf="pageStatus === PageStatus.loading">
   <p class="loading-p">
-    Please wait for edit the books to load, it will take a moment.
+    Please wait for add the books to load, it will take a moment.
   </p>
   <mat-spinner class="loading-page"></mat-spinner>
 </div>
 
 <div *ngIf="pageStatus === PageStatus.loaded">
-  <!-- Edit Form -->
-  <div class="containerEdit" >
-    <div class="edit-header">
-      Edit Form
+  <!-- Add Book Form -->
+  <div class="containerAdd" >
+    <div class="add-header">
+      Add Form
     </div>
-    <form [formGroup]="editBookForm" (ngSubmit)="editBook()" class="form-field">
+    <form [formGroup]="addBookForm" (ngSubmit)="addBook()" class="form-field">
       <div class="containerInput">
         <p>
           <input type="hidden" formControlName="id" readonly >
 
-          <mat-form-field appearance="fill" class="readonly-field">
+          <mat-form-field appearance="fill">
             <mat-label>Code ISBN</mat-label>
-            <input matInput formControlName="codISBN" readonly>
+            <input matInput formControlName="codISBN" type="number">
           </mat-form-field>
-
 
           <mat-form-field appearance="fill">
             <mat-label>Title</mat-label>
             <input matInput formControlName="title">
           </mat-form-field>
-
           <mat-form-field appearance="fill">
             <mat-label>Author</mat-label>
             <input matInput formControlName="author">
@@ -47,15 +45,14 @@
         </p>
         <div class="example-button-row">
           <button mat-raised-button type="submit">
-            Complete Edit
-            <mat-icon matSuffix>edit</mat-icon>
+            Add Book
+            <mat-icon matSuffix>add</mat-icon>
           </button>
         </div>
       </div>
     </form>
   </div>
 </div>
-
 
 <div  *ngIf="pageStatus === PageStatus.error">
   <div class="error-message">
@@ -64,7 +61,7 @@
       Oops, an error occurred while loading the books,<br>
       please try reloading the page.
     </p>
-    <button mat-raised-button type="button" (click)="getBookInfo()">
+    <button mat-raised-button type="button" >
       Reload page
       <mat-icon matSuffix>refresh</mat-icon>
     </button>

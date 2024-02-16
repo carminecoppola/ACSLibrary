@@ -13,12 +13,12 @@
   ],
   "books": [
     {
-      "codISBN": 9780061134084,
       "id": "1",
+      "codISBN": 9780061134084,
       "title": "Harry Potter and the Philosopher's Stone",
       "author": "J.K. Rowling",
       "dateOfPublication": "1997-06-27",
-      "genre": "Fantasy"
+      "genre": "Action"
     },
     {
       "id": "2",
