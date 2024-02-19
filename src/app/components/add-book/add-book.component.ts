@@ -12,50 +12,39 @@ import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition}
   templateUrl: './add-book.component.html',
   styleUrls: ['./add-book.component.css']
 })
-export class AddBookComponent implements OnInit, OnDestroy{
+export class AddBookComponent implements OnInit, OnDestroy {
 
   addBookForm!: FormGroup;
   subscription: Subscription | null = null;
-  countBookID!: number;
-
-  // Array per memorizzare i dettagli del libro aggiornato
   newBook: Book[] = [];
-
   public pageStatus: PageStatus = PageStatus.loading;
 
-  // Durata del messaggio a comparsa
-  durationInSeconds = 5;
+  //SnackBar Variable
+  timer: number = 5
+  message: string | null= null;
+  durationInSeconds: number = 5;
+  /*timerValue: number = this.durationInSeconds;
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
-  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-
-
+  verticalPosition: MatSnackBarVerticalPosition = 'top';*/
   constructor(
     private router: Router,
     private bookService: BookService,
     private route: ActivatedRoute,
     private _snackBar: MatSnackBar
-  ){}
-
+  ) {}
 
   ngOnInit(){
     this.addBookForm = this.createAddBookForm();
-
-    // Ottieni il numero di libri e assegna il valore a countBookID
-    this.bookService.getBooks().pipe(
-      map(books => books.length) // Utilizza l'operatore map per ottenere la lunghezza dell'array di libri
-    ).subscribe(length => {
-      this.countBookID = length;
-    });
-
+    this.pageStatus = PageStatus.loaded;
   }
 
   ngOnDestroy(){
     this.subscription?.unsubscribe();
+
   }
 
   private createAddBookForm(): FormGroup {
     return new FormGroup({
-      id: new FormControl('', Validators.required),
       codISBN: new FormControl('', [Validators.required, Validators.maxLength(13)]),
       title: new FormControl('', Validators.required),
       author: new FormControl('', Validators.required),
@@ -64,44 +53,70 @@ export class AddBookComponent implements OnInit, OnDestroy{
     });
   }
 
+
   addBook() {
-    console.log("Sono in addBook");
-    this.pageStatus = PageStatus.loaded;
-    console.log("Status:", this.pageStatus)
+    if (this.addBookForm.valid) {
+      this.pageStatus = PageStatus.loading;
 
-    const nextId = this.countBookID + 1;
+      const newBook: Book = {
+        codISBN: this.addBookForm.value.codISBN,
+        title: this.addBookForm.value.title,
+        author: this.addBookForm.value.author,
+        dateOfPublication: this.addBookForm.value.dateOfPublication,
+        genre: this.addBookForm.value.genre
+      };
 
-    const newBook: Book = {
-      id: nextId,
-      codISBN: this.addBookForm.value.codISBN,
-      title: this.addBookForm.value.title,
-      author: this.addBookForm.value.author,
-      dateOfPublication: this.addBookForm.value.dateOfPublication,
-      genre: this.addBookForm.value.genre
-    };
-
-    this.bookService.createdBook(newBook).subscribe({
-      next: (res) => {
-        this.pageStatus = PageStatus.loaded;
-        console.log("Status next:", this.pageStatus)
-        this.newBook = res;
-        this.router.navigate(['/library']);
-      },
-      error: (err) => {
-        this.pageStatus = PageStatus.error;
-        console.log("Status error:", this.pageStatus)
-        console.error('Errore durante aggiunta del libro:', err);
-      }
-    });
+      this.bookService.createdBook(newBook).subscribe({
+        next: (res) => {
+          this.pageStatus = PageStatus.loaded;
+          this.newBook = res;
+          //this.showSuccessSnackbar();
+          this.startCountdown();
+        },
+        error: (err) => {
+          this.pageStatus = PageStatus.error;
+          console.error('Errore nell\' aggiunta del libro:', err);
+        }
+      });
+    }
+    else {
+      console.error("Il form deve essere completo per essere inviato")
+    }
   }
 
 
-  /*
-  * Bottone aggiunta
-  * Router aggiustato
-  * SnackBar con timer
-  *
-  * */
+  /*showSuccessSnackbar() {
+    const message:string = `Libro aggiunto con successo. Sarai reindirizzato tra ${this.timerValue} secondi.`
+    const action:string = 'Chiudi';
+    // Apri il messaggio Snackbar con la durata del timer come durata
+    const snackbarRef = this._snackBar.open(message, action, {
+        duration: this.durationInSeconds * 1000, // Durata in millisecondi
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
+  }*/
+
+
+  /*Finchè il timer non arriva a 0
+  * Decrementa il timer e invia il valore del timer sul messaggio
+  * Quando arriva a 0 router su library list */
+
+
+  startCountdown() {
+    this.timer = 5
+    let interval = setInterval(() => {
+      if (this.timer != 0) {
+        this.timer--
+        console.log(this.timer);
+        this.message = `redirecting in ${this.timer}s...`;
+      } else {
+        clearInterval(interval)
+        this.router.navigate(['/library']);
+        this.message = null
+      }
+    }, 1000);
+  }
+
 
   protected readonly PageStatus = PageStatus;
 }

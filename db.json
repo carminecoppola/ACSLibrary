@@ -13,20 +13,12 @@
   ],
   "books": [
     {
-      "id": "1",
-      "codISBN": 9780061134084,
-      "title": "Harry Potter and the Philosopher's Stone",
-      "author": "J.K. Rowling",
-      "dateOfPublication": "1997-06-27",
-      "genre": "Action"
-    },
-    {
       "id": "2",
       "codISBN": 9780061120084,
       "title": "To Kill a Mockingbird",
       "author": "Harper Lee",
       "dateOfPublication": "1960-07-11",
-      "genre": "Fiction"
+      "genre": "Fantasy"
     },
     {
       "id": "3",
@@ -75,6 +67,22 @@
       "author": "Paolo Giordano",
       "dateOfPublication": "2008-09-04",
       "genre": "Romanzo"
+    },
+    {
+      "id": "9",
+      "codISBN": 9084532153259,
+      "title": "Diego Armando Maradona",
+      "author": "Giuseppe Pastore",
+      "dateOfPublication": "2020-11-30",
+      "genre": "Bibliography"
+    },
+    {
+      "id": "630b",
+      "codISBN": 9134532345245,
+      "title": "Il giorno dei lupi",
+      "author": "Marcello Fois",
+      "dateOfPublication": "2020-03-21",
+      "genre": "Romance"
     }
   ]
 }

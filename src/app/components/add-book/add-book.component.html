@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-<div *ngIf="pageStatus === PageStatus.loading">
+<div *ngIf="pageStatus === PageStatus.loading" class="container-loading">
   <p class="loading-p">
     Please wait for add the books to load, it will take a moment.
   </p>
@@ -8,6 +8,15 @@
 </div>
 
 <div *ngIf="pageStatus === PageStatus.loaded">
+
+  <!-- Confirm Button -->
+  <div *ngIf="message" class="countdown">
+    <p class="countdown-message">
+      Book added successfully,<br>
+      {{message}}
+    </p>
+  </div>
+
   <!-- Add Book Form -->
   <div class="containerAdd" >
     <div class="add-header">
@@ -16,11 +25,11 @@
     <form [formGroup]="addBookForm" (ngSubmit)="addBook()" class="form-field">
       <div class="containerInput">
         <p>
-          <input type="hidden" formControlName="id" readonly >
+          <!--<input type="hidden" formControlName="id" readonly >-->
 
           <mat-form-field appearance="fill">
             <mat-label>Code ISBN</mat-label>
-            <input matInput formControlName="codISBN" type="number">
+            <input matInput formControlName="codISBN" type="number" maxlength="13" >
           </mat-form-field>
 
           <mat-form-field appearance="fill">
@@ -40,11 +49,20 @@
 
           <mat-form-field appearance="fill">
             <mat-label>Genre</mat-label>
-            <input matInput formControlName="genre">
+            <mat-select formControlName="genre" placeholder="Select Genre">
+              <mat-option value="">Select Genre</mat-option>
+              <mat-option value="Fantasy">Fantasy</mat-option>
+              <mat-option value="Bibliography">Bibliography</mat-option>
+              <mat-option value="Science Fiction">Science Fiction</mat-option>
+              <mat-option value="Mystery">Mystery</mat-option>
+              <mat-option value="Romance">Romance</mat-option>
+              <mat-option value="Action">Action</mat-option>
+            </mat-select>
           </mat-form-field>
+
         </p>
         <div class="example-button-row">
-          <button mat-raised-button type="submit">
+          <button mat-raised-button type="submit" [disabled]="!addBookForm.valid">
             Add Book
             <mat-icon matSuffix>add</mat-icon>
           </button>

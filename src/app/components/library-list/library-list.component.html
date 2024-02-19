@@ -18,7 +18,7 @@
     <!-- PageStatus.loaded -->
     <div *ngIf="pageStatus === PageStatus.loaded">
       <div class="containerAdd-button">
-        <button mat-fab class="mat-fab-button" type="button" (click)="addNewBook()">
+        <button mat-fab class="mat-fab-button" (click)="addNewBook()">
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -58,7 +58,7 @@
                 <img src="assets/editIcon.svg" alt="edit icon">
               </mat-icon>
             </button>
-            <button>
+            <button (click)="deleteBook(element.codISBN)">
               <mat-icon>
                 <img src="assets/trashIcon.svg" alt="delete icon">
               </mat-icon>

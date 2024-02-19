@@ -8,6 +8,8 @@ import { BookService } from '../../services/book.service';
 import { Book } from '../Book';
 import { Subscription } from 'rxjs';
 import { PageStatus } from '../pageStatus';
+import {MatDialogRef} from "@angular/material/dialog";
+import {DeleteBookComponent} from "../delate-book/delete-book.component";
 
 @Component({
   selector: 'app-library-list',
@@ -36,7 +38,7 @@ export class LibraryListComponent implements OnInit, OnDestroy {
   constructor(
     private bookService: BookService,
     private authService: AuthServiceService,
-    private router: Router
+    private router: Router,
   ) {}
 
   /**
@@ -91,6 +93,12 @@ export class LibraryListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/add-book']);
   }
 
+  /**
+   * Cancella un libro.
+   */
+  deleteBook(codISBN: number) {
+    this.router.navigate(['/delete-book'], { queryParams: { codISBN: codISBN }});
+  }
 
   // Enum per lo stato della pagina
   protected readonly PageStatus = PageStatus;

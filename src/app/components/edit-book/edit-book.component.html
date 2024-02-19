@@ -42,7 +42,15 @@
 
           <mat-form-field appearance="fill">
             <mat-label>Genre</mat-label>
-            <input matInput formControlName="genre">
+            <mat-select formControlName="genre" placeholder="Select Genre">
+              <mat-option value="">Select Genre</mat-option>
+              <mat-option value="Fantasy">Fantasy</mat-option>
+              <mat-option value="Bibliography">Bibliography</mat-option>
+              <mat-option value="Science Fiction">Science Fiction</mat-option>
+              <mat-option value="Mystery">Mystery</mat-option>
+              <mat-option value="Romance">Romance</mat-option>
+              <mat-option value="Action">Action</mat-option>
+            </mat-select>
           </mat-form-field>
         </p>
         <div class="example-button-row">

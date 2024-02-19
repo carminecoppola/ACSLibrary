@@ -35,7 +35,16 @@ export class BookService {
    * @returns Un Observable che indica l'avvenuta creazione del libro.
    */
   public createdBook(addBook: Book):Observable<any>{
+    console.log("Service Created:");
     return this.http.post('http://localhost:3000/books', addBook);
+  }
+
+  /**
+   * Metodo per la cancellazione del libro.
+   */
+  public deleteBook(deleteBook: Book):Observable<any>{
+    console.log("Service: ",deleteBook);
+    return this.http.delete(`http://localhost:3000/books/${deleteBook.id}`);
   }
 
 }

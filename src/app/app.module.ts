@@ -26,6 +26,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatSelectModule} from "@angular/material/select";
 import { AddBookComponent } from './components/add-book/add-book.component';
+import { DeleteBookComponent } from './components/delate-book/delete-book.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import { DialogComponentComponent } from './components/dialog-component/dialog-component.component';
 
 @NgModule({
   declarations: [
@@ -36,12 +39,14 @@ import { AddBookComponent } from './components/add-book/add-book.component';
     NavbarComponent,
     EditBookComponent,
     AddBookComponent,
+    DeleteBookComponent,
+    DialogComponentComponent,
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, AppRoutingModule,
     MatToolbarModule, MatIconModule, MatButtonModule, MatListModule, MatInputModule,
     MatFormFieldModule, MatTableModule, NgOptimizedImage, ReactiveFormsModule, FormsModule, MatCardModule,
-    HttpClientModule, MatProgressSpinnerModule, MatSnackBarModule, MatSelectModule,
+    HttpClientModule, MatProgressSpinnerModule, MatSnackBarModule, MatSelectModule, MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

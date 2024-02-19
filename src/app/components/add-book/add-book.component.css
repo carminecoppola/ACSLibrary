@@ -31,6 +31,36 @@ button{
 }
 
 
+.container-loading{
+  text-align: center;
+  padding: 20px;
+  background-color: #c7f5b7;
+  border: 1px solid #609d45;
+  border-radius: 5px;
+  margin: 20px auto auto;
+  max-width: 350px;
+}
+
+.loading-page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.loading-p {
+  font-size: larger;
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #579f4c;
+}
+
+
 .mat-mdc-raised-button:disabled {
   background-color: var(--mdc-protected-button-disabled-container-color, rgba(0, 0, 0, 0.12));
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
@@ -42,4 +72,21 @@ button.mat-mdc-raised-button:not(:disabled) {
   background-color: #52c732;
   color: white;
   font-weight: bold;
+}
+
+
+.countdown{
+  background-color: #298029;
+  color: white;
+  width: 250px;
+  height: 50px;
+  margin: 20px 20px auto auto;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+
+.countdown-message{
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  margin: 5px auto 5px 20px;
 }
