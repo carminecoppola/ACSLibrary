@@ -1,0 +1,37 @@
+.button{
+  margin-right: 50px;
+  border-radius: 10px;
+  border: white;
+}
+
+.dialog-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #915542;
+}
+
+.dialog-content {
+  max-width: 350px;
+  padding: 20px;
+  color: white;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.dialog-title {
+  color: white;
+}
+
+.mat-mdc-button:not(:disabled) {
+  color:white;
+}
+
+.cancel-button-mat-mdc-button:not(:disabled) {
+  color: #1e5773;
+  text-decoration: underline;
+}

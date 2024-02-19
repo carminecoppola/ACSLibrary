@@ -8,6 +8,8 @@ import { BookService } from '../../services/book.service';
 import { Book } from '../Book';
 import { Subscription } from 'rxjs';
 import { PageStatus } from '../pageStatus';
+import {MatDialogRef} from "@angular/material/dialog";
+import {DeleteBookComponent} from "../delate-book/delete-book.component";
 
 @Component({
   selector: 'app-library-list',
@@ -21,12 +23,6 @@ export class LibraryListComponent implements OnInit, OnDestroy {
 
   allBooks: Book[] = [];
 
-  // Variabile per tenere traccia del libro attualmente in fase di modifica
-  editingBook: Book | undefined;
-
-  // Variabile per mostrare/nascondere il messaggio di successo
-  showSuccessMessage: boolean = false;
-
   // Variabile per capire quando è stata effettuata la subscription
   subscription: Subscription | null = null;
 
@@ -39,7 +35,11 @@ export class LibraryListComponent implements OnInit, OnDestroy {
    * @param authService Servizio per l'autenticazione
    * @param router Oggetto per la navigazione tra le pagine
    */
-  constructor(private bookService: BookService, private authService: AuthServiceService, private router: Router) {}
+  constructor(
+    private bookService: BookService,
+    private authService: AuthServiceService,
+    private router: Router,
+  ) {}
 
   /**
    * Metodo chiamato all'inizializzazione del componente.
@@ -60,19 +60,17 @@ export class LibraryListComponent implements OnInit, OnDestroy {
    * Ottiene tutti i libri dal servizio e aggiorna la lista locale.
    */
   getAllBooks() {
-    this.pageStatus = PageStatus.loading; // Imposto di nuovo a loading per permettere l'aggiornamento della variabile ogni volta
+    this.pageStatus = PageStatus.loading;
 
     this.subscription= this.bookService.getBooks().subscribe({
       next: (res) =>{
-        this.pageStatus = PageStatus.loaded; // Pagina caricata correttamente
-        console.log("Page Status Next: ", this.pageStatus);
+        this.pageStatus = PageStatus.loaded;
         this.allBooks = [...res]; // Operatore di spread
         console.log("allBooks: ", this.allBooks);
-        console.log("id libro: ", this.allBooks);
 
       },
       error: (err) =>{
-        this.pageStatus = PageStatus.error; // Pagina in errore
+        this.pageStatus = PageStatus.error;
         console.error("Errore in questa pagina:", this.pageStatus);
       }
     });
@@ -83,15 +81,24 @@ export class LibraryListComponent implements OnInit, OnDestroy {
    * @param codISBN Il codice ISBN del libro da modificare.
    */
   editBook(codISBN: number) {
-    // Naviga alla pagina di modifica includendo il codice ISBN come parametro nella query dell'URL
     this.router.navigate(['/edit-book'], { queryParams: { codISBN: codISBN }});
   }
 
   /**
-   * Aggiunge un nuovo libro utilizzando il servizio.
-   * Stampa anche un messaggio di successo e aggiorna la lista dopo l'aggiunta.
+   * Aggiunge un nuovo libro, navigando alla pagina di aggiunta.
    */
-  addNewBook() {}
+  addNewBook() {
+    console.log("addNewBook");
+    // Naviga al componente AddBookComponent solo se non sei già in esso
+    this.router.navigate(['/add-book']);
+  }
+
+  /**
+   * Cancella un libro.
+   */
+  deleteBook(codISBN: number) {
+    this.router.navigate(['/delete-book'], { queryParams: { codISBN: codISBN }});
+  }
 
   // Enum per lo stato della pagina
   protected readonly PageStatus = PageStatus;

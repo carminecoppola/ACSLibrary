@@ -82,11 +82,6 @@ tr.alternate-row{
   background-color: #e0e0e0;
 }
 
-/*tr.alternate-row td {
-  font-weight: bold;
-}*/
-
-
 /*Error status*/
 
 .error-message {
@@ -95,7 +90,7 @@ tr.alternate-row{
   background-color: #ffcccc;
   border: 1px solid #ff0000;
   border-radius: 5px;
-  margin: 20px auto;
+  margin: 20px auto auto;
   max-width: 350px;
 }
 
@@ -122,7 +117,7 @@ tr.alternate-row{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 100px auto 100px 500px;
+  margin: auto;
 }
 
 .loading-p {
@@ -136,5 +131,4 @@ tr.alternate-row{
 .mat-mdc-progress-spinner {
   --mdc-circular-progress-active-indicator-color: #2b4949;
 }
-
 
