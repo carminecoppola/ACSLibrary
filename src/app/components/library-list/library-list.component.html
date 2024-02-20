@@ -76,9 +76,12 @@
     <div *ngIf="pageStatus === PageStatus.error">
       <div class="error-message">
         <mat-icon matSuffix>sentiment_very_dissatisfied</mat-icon>
-        <p>
-          Oops, an error occurred while loading the books,<br>
+        <p *ngIf="!deleteError">
+          Oops, an error occurred while <strong> loading the books </strong>,<br>
           please try reloading the page.
+        </p>
+        <p *ngIf="deleteError">
+          Oops, an error occurred while <strong> deleting the book </strong>. Please try again later.
         </p>
         <button mat-raised-button type="button" (click)="getAllBooks()">
           Reload page

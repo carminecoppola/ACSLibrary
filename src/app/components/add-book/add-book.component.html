@@ -24,15 +24,20 @@
     </div>
     <form [formGroup]="addBookForm" (ngSubmit)="addBook()" class="form-field">
       <div class="containerInput">
-        <p>
+
           <!--<input type="hidden" formControlName="id" readonly >-->
 
           <mat-form-field appearance="fill">
             <mat-label>Code ISBN</mat-label>
-            <input matInput formControlName="codISBN" type="number" maxlength="13" >
+            <input matInput formControlName="codISBN" type="number">
           </mat-form-field>
+          <!--<div *ngIf="addBookForm.errors">
 
-          <mat-form-field appearance="fill">
+          </div>-->
+
+
+
+        <mat-form-field appearance="fill">
             <mat-label>Title</mat-label>
             <input matInput formControlName="title">
           </mat-form-field>
@@ -40,11 +45,11 @@
             <mat-label>Author</mat-label>
             <input matInput formControlName="author">
           </mat-form-field>
-        </p>
+
         <p>
           <mat-form-field appearance="fill">
             <mat-label>Date of Publication</mat-label>
-            <input matInput formControlName="dateOfPublication">
+            <input matInput formControlName="dateOfPublication" type="date">
           </mat-form-field>
 
           <mat-form-field appearance="fill">

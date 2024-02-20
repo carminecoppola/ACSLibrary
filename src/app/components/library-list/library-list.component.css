@@ -90,15 +90,16 @@ tr.alternate-row{
   background-color: #ffcccc;
   border: 1px solid #ff0000;
   border-radius: 5px;
-  margin: 20px auto auto;
+  margin: 20px auto 10px;
   max-width: 350px;
 }
 
 .error-message mat-icon {
-  font-size: 40px;
+  font-size: 70px;
   color: white;
   height: 70px;
   width: 70px;
+  animation: pulse 1s infinite alternate;
 }
 
 .error-message button{
@@ -112,6 +113,20 @@ tr.alternate-row{
   position: fixed;
 }
 
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+
+/*
+  @keyframes, definiamo un'animazione di pulsazione che alterna tra la scala normale (1)
+  e una scala leggermente ingrandita (1.2) per dare l'effetto di pulsazione.
+  L'animazione viene applicata all' icona utilizzando la regola animation di durata di 1s.
+*/
 
 .loading-page{
   display: flex;

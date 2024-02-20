@@ -1,15 +1,12 @@
-/**
- * Componente principale per la visualizzazione della lista dei libri.
- */
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthServiceService } from '../../services/auth-service.service';
-import { Router } from '@angular/router';
-import { BookService } from '../../services/book.service';
-import { Book } from '../Book';
-import { Subscription } from 'rxjs';
-import { PageStatus } from '../pageStatus';
-import {MatDialogRef} from "@angular/material/dialog";
-import {DeleteBookComponent} from "../delate-book/delete-book.component";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AuthServiceService} from '../../services/auth-service.service';
+import {Router} from '@angular/router';
+import {BookService} from '../../services/book.service';
+import {Book} from '../Book';
+import {Subscription} from 'rxjs';
+import {PageStatus} from '../pageStatus';
+import {MatDialog} from "@angular/material/dialog";
+import {DialogComponentComponent} from "../dialog-component/dialog-component.component";
 
 @Component({
   selector: 'app-library-list',
@@ -22,6 +19,7 @@ export class LibraryListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['title', 'author', 'dateOfPublication', 'genre', 'action'];
 
   allBooks: Book[] = [];
+  deleteError = false; // Serve per visualizzare un errore diverso se si verifica un errore in fase di delete.
 
   // Variabile per capire quando è stata effettuata la subscription
   subscription: Subscription | null = null;
@@ -34,11 +32,13 @@ export class LibraryListComponent implements OnInit, OnDestroy {
    * @param bookService Servizio per la gestione dei libri
    * @param authService Servizio per l'autenticazione
    * @param router Oggetto per la navigazione tra le pagine
+   * @param dialog
    */
   constructor(
     private bookService: BookService,
     private authService: AuthServiceService,
     private router: Router,
+    public dialog: MatDialog,
   ) {}
 
   /**
@@ -97,8 +97,49 @@ export class LibraryListComponent implements OnInit, OnDestroy {
    * Cancella un libro.
    */
   deleteBook(codISBN: number) {
-    this.router.navigate(['/delete-book'], { queryParams: { codISBN: codISBN }});
+
+    const bookToDelete = this.allBooks.find(book => book.codISBN === codISBN);
+    const title = bookToDelete?.title; // Per avere il titolo del libro;
+    console.log("Titolo del libro: ", title);
+
+    this.deleteError = false;
+
+    const dialogRef = this.dialog.open(DialogComponentComponent, {
+      width: '450px',
+      data: {
+        codISBN: codISBN,
+        title: title,
+      }
+    });
+
+    this.subscription = dialogRef.afterClosed().subscribe(result => {
+      if (result) { // Se l'utente ha confermato l'eliminazione
+        this.pageStatus = PageStatus.loading; // Imposta lo stato della pagina su "loading"
+        const bookToDelete = this.allBooks.find(book => book.codISBN === codISBN);
+        if (bookToDelete) {
+          this.subscription = this.bookService.deleteBook(bookToDelete).subscribe({
+            next: (res) => {
+              console.log("Libro cancellato:", res);
+              // Aggiorna la lista dei libri dopo la cancellazione
+              this.getAllBooks();
+            },
+            error: (err) => {
+              this.pageStatus = PageStatus.error; // Imposta lo stato della pagina su "error"
+              console.error("Errore durante la cancellazione del libro:", err);
+            }
+          });
+        } else {
+          console.error("Libro non trovato con codice ISBN:", codISBN);
+          this.deleteError = true;
+          this.pageStatus = PageStatus.error;
+        }
+      } else {
+        // L'utente ha cliccato "No" o ha chiuso il dialog
+        console.log("L'utente ha annullato l'eliminazione del libro.");
+      }
+    });
   }
+
 
   // Enum per lo stato della pagina
   protected readonly PageStatus = PageStatus;

@@ -14,7 +14,7 @@ import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition}
 })
 export class AddBookComponent implements OnInit, OnDestroy {
 
-  addBookForm!: FormGroup;
+  public addBookForm!: FormGroup;
   subscription: Subscription | null = null;
   newBook: Book[] = [];
   public pageStatus: PageStatus = PageStatus.loading;
@@ -43,9 +43,12 @@ export class AddBookComponent implements OnInit, OnDestroy {
 
   }
 
-  private createAddBookForm(): FormGroup {
+  public createAddBookForm(): FormGroup {
     return new FormGroup({
-      codISBN: new FormControl('', [Validators.required, Validators.maxLength(13)]),
+      codISBN: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+      ]),
       title: new FormControl('', Validators.required),
       author: new FormControl('', Validators.required),
       dateOfPublication: new FormControl('', Validators.required),

@@ -26,7 +26,6 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatSelectModule} from "@angular/material/select";
 import { AddBookComponent } from './components/add-book/add-book.component';
-import { DeleteBookComponent } from './components/delate-book/delete-book.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { DialogComponentComponent } from './components/dialog-component/dialog-component.component';
 
@@ -39,7 +38,6 @@ import { DialogComponentComponent } from './components/dialog-component/dialog-c
     NavbarComponent,
     EditBookComponent,
     AddBookComponent,
-    DeleteBookComponent,
     DialogComponentComponent,
   ],
   imports: [

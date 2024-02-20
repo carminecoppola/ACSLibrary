@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {DeleteBookComponent} from "../delate-book/delete-book.component";
+import {Component, Inject, Input} from '@angular/core';
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-dialog-component',
@@ -8,10 +8,8 @@ import {DeleteBookComponent} from "../delate-book/delete-book.component";
 })
 export class DialogComponentComponent {
 
-  @Input() title: string = '';
 
-  constructor(){}
-
+  constructor(@Inject(MAT_DIALOG_DATA) public data:{title: string, codISBN: number}){}
 
 
 

@@ -1,14 +1,13 @@
-.button{
+.button {
   margin-right: 50px;
-  border-radius: 10px;
-  border: white;
+  border-radius: 20px;
 }
 
 .dialog-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #915542;
+  background-color: #e01919;
 }
 
 .dialog-content {

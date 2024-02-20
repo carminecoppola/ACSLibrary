@@ -1,19 +1,29 @@
 {
   "users": [
     {
+      "id": "1",
       "username": "carmine",
-      "password": "123",
-      "id": "1"
+      "password": "123"
+
     },
     {
+      "id": "2",
       "username": "giovanni",
-      "password": "234",
-      "id": "2"
+      "password": "234"
+
     }
   ],
   "books": [
     {
-      "id": "2",
+      "id": "87af",
+      "codISBN": 9788806149565,
+      "title": "Harry Potter and the Philosopher's Stone",
+      "author": "J.K. Rowling",
+      "dateOfPublication": "1997-06-26",
+      "genre": "Bibliography"
+    },
+    {
+      "id": "c9e2",
       "codISBN": 9780061120084,
       "title": "To Kill a Mockingbird",
       "author": "Harper Lee",
@@ -21,7 +31,7 @@
       "genre": "Fantasy"
     },
     {
-      "id": "3",
+      "id": "3f6d",
       "codISBN": 9780743273565,
       "title": "The Great Gatsby",
       "author": "F. Scott Fitzgerald",
@@ -29,7 +39,7 @@
       "genre": "Classic"
     },
     {
-      "id": "4",
+      "id": "a821",
       "codISBN": 9780140283334,
       "title": "1984",
       "author": "George Orwell",
@@ -37,15 +47,15 @@
       "genre": "Dystopian"
     },
     {
-      "id": "5",
+      "id": "e4b9",
       "codISBN": 9780062315007,
       "title": "The Fault in Our Stars",
       "author": "John Green",
       "dateOfPublication": "2012-01-10",
-      "genre": "Young Adult"
+      "genre": "Mystery"
     },
     {
-      "id": "6",
+      "id": "1d7f",
       "codISBN": 9788804486629,
       "title": "I promessi sposi",
       "author": "Alessandro Manzoni",
@@ -53,7 +63,7 @@
       "genre": "Romanzo storico"
     },
     {
-      "id": "7",
+      "id": "5a2c",
       "codISBN": 9788806149565,
       "title": "Gomorra",
       "author": "Roberto Saviano",
@@ -61,7 +71,7 @@
       "genre": "Saggio"
     },
     {
-      "id": "8",
+      "id": "f8e3",
       "codISBN": 9788804666784,
       "title": "La solitudine dei numeri primi",
       "author": "Paolo Giordano",
@@ -69,7 +79,7 @@
       "genre": "Romanzo"
     },
     {
-      "id": "9",
+      "id": "b456",
       "codISBN": 9084532153259,
       "title": "Diego Armando Maradona",
       "author": "Giuseppe Pastore",
@@ -77,12 +87,12 @@
       "genre": "Bibliography"
     },
     {
-      "id": "630b",
-      "codISBN": 9134532345245,
-      "title": "Il giorno dei lupi",
-      "author": "Marcello Fois",
-      "dateOfPublication": "2020-03-21",
-      "genre": "Romance"
+      "id": "21db",
+      "codISBN": 9788817018142,
+      "title": "Il Codice da Vinci",
+      "author": "Dan Brown",
+      "dateOfPublication": "2003-03-18",
+      "genre": "Mystery"
     }
   ]
 }
