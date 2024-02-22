@@ -93,14 +93,10 @@ export class LibraryListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/add-book']);
   }
 
-  /**
-   * Cancella un libro.
-   */
-  deleteBook(codISBN: number) {
 
-    const bookToDelete = this.allBooks.find(book => book.codISBN === codISBN);
-    const title = bookToDelete?.title; // Per avere il titolo del libro;
-    console.log("Titolo del libro: ", title);
+  /*confirmCloseModal(codISBN: number, bookTitle: string) {
+
+    console.log("Titolo del libro: ", bookTitle);
 
     this.deleteError = false;
 
@@ -108,37 +104,88 @@ export class LibraryListComponent implements OnInit, OnDestroy {
       width: '450px',
       data: {
         codISBN: codISBN,
-        title: title,
+        title: bookTitle,
       }
     });
 
-    this.subscription = dialogRef.afterClosed().subscribe(result => {
-      if (result) { // Se l'utente ha confermato l'eliminazione
+    //close modal() verrà assegnato al metodo cancel
+    //afterclose() funzione di cancellazione del libro
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
         this.pageStatus = PageStatus.loading; // Imposta lo stato della pagina su "loading"
         const bookToDelete = this.allBooks.find(book => book.codISBN === codISBN);
+
         if (bookToDelete) {
-          this.subscription = this.bookService.deleteBook(bookToDelete).subscribe({
+          this.bookService.deleteBook(bookToDelete).subscribe({
             next: (res) => {
               console.log("Libro cancellato:", res);
-              // Aggiorna la lista dei libri dopo la cancellazione
-              this.getAllBooks();
+              this.getAllBooks(); // Aggiorna la lista dei libri dopo la cancellazione
             },
             error: (err) => {
               this.pageStatus = PageStatus.error; // Imposta lo stato della pagina su "error"
               console.error("Errore durante la cancellazione del libro:", err);
             }
-          });
+          })
         } else {
           console.error("Libro non trovato con codice ISBN:", codISBN);
           this.deleteError = true;
           this.pageStatus = PageStatus.error;
         }
-      } else {
+      }
+      else {
         // L'utente ha cliccato "No" o ha chiuso il dialog
+        console.log("L'utente ha annullato l'eliminazione del libro.");
+      }
+    })
+  }*/
+
+
+  confirmCloseDialog(codISBN: number, bookTitle: string) {
+    console.log("Titolo del libro: ", bookTitle);
+
+    this.deleteError = false;
+
+    const dialogRef = this.dialog.open(DialogComponentComponent, {
+      width: '450px',
+      data: {
+        codISBN: codISBN,
+        title: bookTitle,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log("Sono qui");
+        this.deleteBookIfConfirmed(codISBN);
+      } else {
         console.log("L'utente ha annullato l'eliminazione del libro.");
       }
     });
   }
+
+  deleteBookIfConfirmed(codISBN: number) {
+    this.pageStatus = PageStatus.loading; // Imposta lo stato della pagina su "loading"
+    const bookToDelete = this.allBooks.find(book => book.codISBN === codISBN);
+
+    if (bookToDelete) {
+      this.bookService.deleteBook(bookToDelete).subscribe({
+        next: (res) => {
+          console.log("Libro cancellato:", res);
+          this.getAllBooks(); // Aggiorna la lista dei libri dopo la cancellazione
+        },
+        error: (err) => {
+          this.pageStatus = PageStatus.error; // Imposta lo stato della pagina su "error"
+          console.error("Errore durante la cancellazione del libro:", err);
+        }
+      })
+    } else {
+      console.error("Libro non trovato con codice ISBN:", codISBN);
+      this.deleteError = true;
+      this.pageStatus = PageStatus.error;
+    }
+  }
+
 
 
   // Enum per lo stato della pagina
