@@ -29,13 +29,13 @@ table{
 }
 
 th,td{
-  width: 20%;
+  width: 20px;
   padding: 10px;
 }
 
 .header-row {
   background-color: darkslategrey;
-  width: 20%;
+  width: 20px;
 }
 
 .header-cell{
