@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
 import { BookService } from '../../services/book.service';
@@ -8,39 +8,43 @@ import { PageStatus } from '../pageStatus';
 import { MatDialog } from "@angular/material/dialog";
 import { DialogComponentComponent } from "../dialog-component/dialog-component.component";
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from "@angular/material/snack-bar";
+import { Sort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 
-
+/**
+ * Component for displaying the list of books in the library.
+ */
 @Component({
   selector: 'app-library-list',
   templateUrl: './library-list.component.html',
   styleUrls: ['./library-list.component.css']
 })
-export class LibraryListComponent implements OnInit, OnDestroy {
+export class LibraryListComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  // Array di stringhe che rappresentano le colonne da visualizzare nella tabella
-  columns: string[] = ['title', 'author', 'dateOfPublication', 'genre', 'action'];
+  columns: string[] = ['title', 'author', 'dateOfPublication', 'genre', 'action']; // Columns to display in the table
+  allBooks!: Book[];
 
-  allBooks: Book[] = [];
-  deleteError = false; // Serve per visualizzare un errore diverso se si verifica un errore in fase di delete.
+  dataSource!: MatTableDataSource<Book>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator; // Paginator
 
-  // Variabile per capire quando è stata effettuata la subscription
-  subscription: Subscription | null = null;
+  deleteError: boolean = false; // Indicates whether there was an error during deletion
+  subscription: Subscription | null = null; // Variable to close the subscription (currently not used)
 
-  // Durata del messaggio a comparsa
+  // Snackbar duration
   durationInSeconds = 5;
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-  // Variabile per lo stato della pagina
-  public pageStatus: PageStatus = PageStatus.loading; // Inizializzo a loading
+  public pageStatus: PageStatus = PageStatus.loading; // Variable for page status
 
   /**
-   * Costruttore del componente.
-   * @param bookService Servizio per la gestione dei libri
-   * @param authService Servizio per l'autenticazione
-   * @param router Oggetto per la navigazione tra le pagine
-   * @param dialog Oggetto per la gestione dei dialoghi
-   * @param _snackBar Oggetto per la gestione degli snackbar
+   * Constructor of the component.
+   * @param bookService Service for managing books
+   * @param authService Authentication service
+   * @param router Object for navigating between pages
+   * @param dialog Object for managing dialogs
+   * @param _snackBar Object for managing snackbar
    */
   constructor(
     private bookService: BookService,
@@ -48,67 +52,136 @@ export class LibraryListComponent implements OnInit, OnDestroy {
     private router: Router,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
-  ) {}
-
+  ) { }
 
   /**
-   * Metodo chiamato all'inizializzazione del componente.
-   * Richiama il metodo per ottenere tutti i libri.
+   * Method called on component initialization.
+   * Calls the method to get all books.
    */
   ngOnInit() {
     this.getAllBooks();
   }
 
   /**
-   * Metodo di distruzione del componente, serve soprattutto a terminare le subscribe.
+   * Method for component destruction, primarily used to unsubscribe.
    */
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscription?.unsubscribe();
   }
 
   /**
-   * Ottiene tutti i libri dal servizio e aggiorna la lista locale.
+   * Method called after Angular has initialized the component's views.
+   * Initializes the paginator.
+   */
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  /**
+   * Gets all books from the service and updates the local list.
    */
   getAllBooks() {
     this.pageStatus = PageStatus.loading;
 
-    this.subscription= this.bookService.getBooks().subscribe({
-      next: (res) =>{
+    this.bookService.getBooks().subscribe({
+      next: (res) => {
         this.pageStatus = PageStatus.loaded;
-        this.allBooks = [...res]; // Operatore di spread
-        console.log("allBooks: ", this.allBooks);
-
+        this.allBooks = [...res];
+        this.dataSource = new MatTableDataSource<Book>(this.allBooks); // dataSource with books obtained for Ng Material
+        this.dataSource.paginator = this.paginator;  // Associates the paginator with the dataSource
       },
-      error: (err) =>{
+      error: (err) => {
         this.pageStatus = PageStatus.error;
-        console.error("Errore in questa pagina:", this.pageStatus);
+        console.error("Error while retrieving books:", err);
       }
     });
   }
 
   /**
-   * Avvia la modifica di un libro, impostando il libro corrente nel servizio e navigando alla pagina di modifica.
-   * @param codISBN Il codice ISBN del libro da modificare.
+   * Handles the page change event in the paginator.
+   * @param event The page change event.
+   */
+  onPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize;
+    const endIndex = startIndex + event.pageSize;
+
+    this.dataSource.data = this.allBooks.slice(startIndex, endIndex);
+  }
+
+  /**
+   * Applies the filter to the books table.
+   * @param event The input event.
+   */
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+
+    if (filterValue.length >= 3) {
+      this.dataSource.filter = filterValue;
+    } else if (filterValue.length === 0) {
+      this.dataSource.filter = '';
+    }
+  }
+
+  /**
+   * Sorts the data in the books table based on the selected sorting.
+   * @param sort The sorting option.
+   */
+  sortData(sort: Sort) {
+    if (!sort.active || sort.direction === '') {
+      this.dataSource.data = this.allBooks; // Restores the original data
+      return;
+    }
+
+    this.dataSource.data = this.dataSource.data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'title':
+          return this.compare(a.title, b.title, isAsc);
+        case 'author':
+          return this.compare(a.author, b.author, isAsc);
+        case 'dateOfPublication':
+          return this.compare(a.dateOfPublication, b.dateOfPublication, isAsc);
+        case 'genre':
+          return this.compare(a.genre, b.genre, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
+
+  /**
+   * Comparison function for sorting.
+   * @param a First value to compare.
+   * @param b Second value to compare.
+   * @param isAsc Flag for ascending or descending sorting.
+   * @returns The result of the comparison.
+   */
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  /**
+   * Initiates the edit of a book by setting the current book in the service and navigating to the edit page.
+   * @param codISBN The ISBN code of the book to edit.
    */
   editBook(codISBN: number) {
     this.router.navigate(['/edit-book'], { queryParams: { codISBN: codISBN }});
   }
 
   /**
-   * Aggiunge un nuovo libro, navigando alla pagina di aggiunta.
+   * Adds a new book, navigating to the add page.
    */
   addNewBook() {
     this.router.navigate(['/add-book']);
   }
 
-
   /**
-   * Apre un dialog per confermare l'eliminazione di un libro o annullarla.
-   * @param codISBN Il codice ISBN del libro da eliminare.
-   * @param bookTitle Il titolo del libro da eliminare.
+   * Opens a dialog to confirm the deletion of a book or cancel it.
+   * @param codISBN The ISBN code of the book to delete.
+   * @param bookTitle The title of the book to delete.
    */
   confirmCloseDialog(codISBN: number, bookTitle: string) {
-    this.deleteError = false; // Per visualizzare un errore in HTML
+    this.deleteError = false;
 
     const dialogRef = this.dialog.open(DialogComponentComponent, {
       width: '450px',
@@ -120,29 +193,27 @@ export class LibraryListComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.deleteBookIfConfirmed(codISBN); //Richiamo la funzione di cancellazione del libro
+        this.deleteBookIfConfirmed(codISBN);
       } else {
-        console.log("L'utente ha annullato l'eliminazione del libro.");
+        console.log("User canceled book deletion.");
       }
     });
   }
 
   /**
-   * Elimina un libro dopo aver confermato la sua eliminazione.
-   * @param codISBN Il codice ISBN del libro da eliminare.
+   * Deletes a book after confirming its deletion.
+   * @param codISBN The ISBN code of the book to delete.
    */
   deleteBookIfConfirmed(codISBN: number) {
-    this.pageStatus = PageStatus.loading; // Imposta lo stato della pagina su "loading"
+    this.pageStatus = PageStatus.loading;
+
     const bookToDelete = this.allBooks.find(book => book.codISBN === codISBN);
 
     if (bookToDelete) {
       this.bookService.deleteBook(bookToDelete).subscribe({
         next: (res) => {
-          console.log("Libro cancellato:", res);
-
-          this.getAllBooks(); // Aggiorna la lista dei libri dopo la cancellazione
-
-          // Aggiungere snackbar temporizzato
+          console.log("Book deleted:", res);
+          this.getAllBooks();
 
           this._snackBar.open('Book successfully deleted', 'Close', {
             duration: this.durationInSeconds * 1000,
@@ -151,18 +222,16 @@ export class LibraryListComponent implements OnInit, OnDestroy {
           });
         },
         error: (err) => {
-          this.pageStatus = PageStatus.error; // Imposta lo stato della pagina su "error"
-          console.error("Errore durante la cancellazione del libro:", err);
+          this.pageStatus = PageStatus.error;
+          console.error("Error deleting the book:", err);
         }
-      })
+      });
     } else {
-      console.error("Libro non trovato con codice ISBN:", codISBN);
+      console.error("Book not found with ISBN code:", codISBN);
       this.deleteError = true;
       this.pageStatus = PageStatus.error;
     }
   }
 
-  // Enum per lo stato della pagina
   protected readonly PageStatus = PageStatus;
-
 }
