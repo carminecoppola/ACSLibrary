@@ -18,7 +18,7 @@
       "title": "Harry Potter and the Philosopher's Stone",
       "author": "J.K. Rowling",
       "dateOfPublication": "1997-06-26",
-      "genre": "Fantasy"
+      "genre": "Bibliography"
     },
     {
       "id": "c9e2",
@@ -26,7 +26,7 @@
       "title": "To Kill a Mockingbird",
       "author": "Harper Lee",
       "dateOfPublication": "1960-07-11",
-      "genre": "Fantasy"
+      "genre": "Romance"
     },
     {
       "id": "3f6d",
@@ -34,7 +34,7 @@
       "title": "The Great Gatsby",
       "author": "F. Scott Fitzgerald",
       "dateOfPublication": "1925-04-10",
-      "genre": "Classic"
+      "genre": "Mystery"
     },
     {
       "id": "a821",
@@ -42,7 +42,7 @@
       "title": "1984",
       "author": "George Orwell",
       "dateOfPublication": "1949-06-08",
-      "genre": "Dystopian"
+      "genre": "Science Fiction"
     },
     {
       "id": "e4b9",
@@ -50,7 +50,7 @@
       "title": "The Fault in Our Stars",
       "author": "John Green",
       "dateOfPublication": "2012-01-10",
-      "genre": "Mystery"
+      "genre": "Romance"
     },
     {
       "id": "1d7f",
@@ -74,7 +74,7 @@
       "title": "La solitudine dei numeri primi",
       "author": "Paolo Giordano",
       "dateOfPublication": "2008-09-04",
-      "genre": "Romanzo"
+      "genre": "Romance"
     },
     {
       "id": "b456",
@@ -93,12 +93,92 @@
       "genre": "Mystery"
     },
     {
-      "id": "26af",
-      "codISBN": 9783834018142,
-      "title": "Prova",
-      "author": "Autore",
-      "dateOfPublication": "2007-02-21",
+      "id": "364d",
+      "codISBN": 9781400077285,
+      "title": "The Da Vinci Code",
+      "author": "Dan Brown",
+      "dateOfPublication": "2003-03-18",
       "genre": "Mystery"
+    },
+    {
+      "id": "fa12",
+      "codISBN": 9780739318182,
+      "title": "Gone Girl",
+      "author": "Gillian Flynn",
+      "dateOfPublication": "2012-06-05",
+      "genre": "Mystery"
+    },
+    {
+      "id": "a2e7",
+      "codISBN": 9780743486224,
+      "title": "The Lovely Bones",
+      "author": "Alice Sebold",
+      "dateOfPublication": "2002-07-03",
+      "genre": "Mystery"
+    },
+    {
+      "id": "bc32",
+      "codISBN": 9780345545382,
+      "title": "The Girl on the Train",
+      "author": "Paula Hawkins",
+      "dateOfPublication": "2015-01-13",
+      "genre": "Mystery"
+    },
+    {
+      "id": "2d9f",
+      "codISBN": 9780345803481,
+      "title": "Fifty Shades of Grey",
+      "author": "E.L. James",
+      "dateOfPublication": "2011-05-25",
+      "genre": "Romance"
+    },
+    {
+      "id": "e3b4",
+      "codISBN": 9781501125466,
+      "title": "Me Before You",
+      "author": "Jojo Moyes",
+      "dateOfPublication": "2012-12-31",
+      "genre": "Romance"
+    },
+    {
+      "id": "8d1c",
+      "codISBN": 9780345548956,
+      "title": "The Fault in Our Stars",
+      "author": "John Green",
+      "dateOfPublication": "2012-01-10",
+      "genre": "Romance"
+    },
+    {
+      "id": "6f81",
+      "codISBN": 9780451488692,
+      "title": "Ready Player One",
+      "author": "Ernest Cline",
+      "dateOfPublication": "2011-08-16",
+      "genre": "Science Fiction"
+    },
+    {
+      "id": "9b7e",
+      "codISBN": 9780316228532,
+      "title": "The Martian",
+      "author": "Andy Weir",
+      "dateOfPublication": "2014-02-11",
+      "genre": "Science Fiction"
+    },
+    {
+      "id": "4c15",
+      "codISBN": 9781982123966,
+      "title": "Dune",
+      "author": "Frank Herbert",
+      "dateOfPublication": "1965-06-01",
+      "genre": "Science Fiction"
+    },
+    {
+      "id": "a3b2",
+      "codISBN": 9964543553423,
+      "title": "Prova",
+      "author": "Io",
+      "dateOfPublication": "2003-02-11",
+      "genre": "Fantasy"
     }
   ]
 }

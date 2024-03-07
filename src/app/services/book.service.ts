@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Book } from '../components/Book';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -12,39 +11,39 @@ export class BookService {
   constructor(private http: HttpClient) {}
 
   /**
-   * Ottiene tutti i libri dal mock.
-   * @returns Un Observable che fornisce un array di libri.
+   * Retrieves all books from the mock server.
+   * @returns An Observable that provides an array of books.
    */
   public getBooks(): Observable<Book[]> {
     return this.http.get<Book[]>('http://localhost:3000/books');
   }
 
   /**
-   * Aggiorna le informazioni di un libro specifico.
-   * @param updatedBook Il libro aggiornato.
-   * @returns Un Observable che indica l'avvenuto aggiornamento del libro.
+   * Updates the information of a specific book.
+   * @param updatedBook The updated book.
+   * @returns An Observable indicating the successful update of the book.
    */
   public updateBookInfo(updatedBook: Book): Observable<any> {
     return this.http.put(`http://localhost:3000/books/${updatedBook.id}`, updatedBook);
   }
 
   /**
-   * Effettua una richiesta HTTP di tipo POST per effettuare la creazione
-   * di un nuovo libro.
-   * @param addBook è il libro creato.
-   * @returns Un Observable che indica l'avvenuta creazione del libro.
+   * Sends an HTTP POST request to create a new book.
+   * @param addBook The book to be created.
+   * @returns An Observable indicating the successful creation of the book.
    */
-  public createdBook(addBook: Book):Observable<any>{
+  public createdBook(addBook: Book): Observable<any> {
     console.log("Service Created:");
     return this.http.post('http://localhost:3000/books', addBook);
   }
 
   /**
-   * Metodo per la cancellazione del libro.
+   * Method for deleting the book.
+   * @param deleteBook The book to be deleted.
+   * @returns An Observable indicating the successful deletion of the book.
    */
-  public deleteBook(deleteBook: Book):Observable<any>{
-    console.log("Service: ",deleteBook);
+  public deleteBook(deleteBook: Book): Observable<any> {
+    console.log("Service: ", deleteBook);
     return this.http.delete(`http://localhost:3000/books/${deleteBook.id}`);
   }
-
 }

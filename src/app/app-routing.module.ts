@@ -10,12 +10,9 @@ import {AddBookComponent} from "./components/add-book/add-book.component";
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  //{ path: 'library', component: LibraryListComponent, canActivate:[AuthGuardGuard] },
-  //{ path: 'edit-book', component: EditBookComponent, canActivate:[AuthGuardGuard] },
-  //{ path: 'add-book', component: AddBookComponent, canActivate:[AuthGuardGuard] },
-  { path: 'library', component: LibraryListComponent },
-  { path: 'edit-book', component: EditBookComponent },
-  { path: 'add-book', component: AddBookComponent },
+  { path: 'library', component: LibraryListComponent, canActivate:[AuthGuardGuard] },
+  { path: 'edit-book', component: EditBookComponent, canActivate:[AuthGuardGuard] },
+  { path: 'add-book', component: AddBookComponent, canActivate:[AuthGuardGuard] },
   { path: '**', component: PageNotFoundComponent },
 ];
 

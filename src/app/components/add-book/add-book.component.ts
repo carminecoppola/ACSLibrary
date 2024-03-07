@@ -1,12 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {PageStatus} from "../pageStatus";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {map, Subscription} from "rxjs";
-import {ActivatedRoute, Router} from "@angular/router";
-import {BookService} from "../../services/book.service";
-import {Book} from "../Book";
-import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from "@angular/material/snack-bar";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { PageStatus } from "../pageStatus";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Subscription } from "rxjs";
+import { ActivatedRoute, Router } from "@angular/router";
+import { BookService } from "../../services/book.service";
+import { Book } from "../Book";
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from "@angular/material/snack-bar";
 
+/**
+ * Component for adding a new book.
+ */
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
@@ -14,18 +17,16 @@ import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition}
 })
 export class AddBookComponent implements OnInit, OnDestroy {
 
-  public addBookForm!: FormGroup;
-  subscription: Subscription | null = null;
-  newBook: Book[] = [];
-  public pageStatus: PageStatus = PageStatus.loading;
+  public addBookForm!: FormGroup; // Form group for adding a new book
+  subscription: Subscription | null = null; // Subscription to manage observables
+  newBook: Book[] = []; // Array to store the newly added book
+  public pageStatus: PageStatus = PageStatus.loading; // Page status variable
 
-  //SnackBar Variable
-  timer: number = 5
-  message: string | null= null;
+  // Snackbar variables
+  timer: number = 5;
+  message: string | null = null;
   durationInSeconds: number = 5;
-  /*timerValue: number = this.durationInSeconds;
-  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';*/
+
   constructor(
     private router: Router,
     private bookService: BookService,
@@ -40,9 +41,12 @@ export class AddBookComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.subscription?.unsubscribe();
-
   }
 
+  /**
+   * Method to create the form for adding a new book.
+   * @returns FormGroup object representing the add book form.
+   */
   public createAddBookForm(): FormGroup {
     return new FormGroup({
       codISBN: new FormControl('', [
@@ -56,7 +60,10 @@ export class AddBookComponent implements OnInit, OnDestroy {
     });
   }
 
-
+  /**
+   * Method to add a new book.
+   * Sends the new book details to the server and handles the response.
+   */
   addBook() {
     if (this.addBookForm.valid) {
       this.pageStatus = PageStatus.loading;
@@ -73,53 +80,37 @@ export class AddBookComponent implements OnInit, OnDestroy {
         next: (res) => {
           this.pageStatus = PageStatus.loaded;
           this.newBook = res;
-          //this.showSuccessSnackbar();
           this.startCountdown();
         },
         error: (err) => {
           this.pageStatus = PageStatus.error;
-          console.error('Errore nell\' aggiunta del libro:', err);
+          console.error('Error adding the book:', err);
         }
       });
     }
     else {
-      console.error("Il form deve essere completo per essere inviato")
+      console.error("The form must be complete to be submitted")
     }
   }
 
-
-  /*showSuccessSnackbar() {
-    const message:string = `Libro aggiunto con successo. Sarai reindirizzato tra ${this.timerValue} secondi.`
-    const action:string = 'Chiudi';
-    // Apri il messaggio Snackbar con la durata del timer come durata
-    const snackbarRef = this._snackBar.open(message, action, {
-        duration: this.durationInSeconds * 1000, // Durata in millisecondi
-        horizontalPosition: this.horizontalPosition,
-        verticalPosition: this.verticalPosition,
-      });
-  }*/
-
-
-  /*Finchè il timer non arriva a 0
-  * Decrementa il timer e invia il valore del timer sul messaggio
-  * Quando arriva a 0 router su library list */
-
-
+  /**
+   * Method to start the countdown timer for redirection after adding a new book.
+   */
   startCountdown() {
-    this.timer = 5
+    this.timer = 5;
     let interval = setInterval(() => {
       if (this.timer != 0) {
-        this.timer--
+        this.timer--;
         console.log(this.timer);
-        this.message = `redirecting in ${this.timer}s...`;
+        this.message = `Redirecting in ${this.timer}s...`;
       } else {
-        clearInterval(interval)
+        clearInterval(interval);
         this.router.navigate(['/library']);
-        this.message = null
+        this.message = null;
       }
     }, 1000);
   }
 
-
+  // Enum for page status
   protected readonly PageStatus = PageStatus;
 }

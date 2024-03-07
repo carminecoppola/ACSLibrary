@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthServiceService } from "../services/auth-service.service";
 
 /**
- * @description Guardia per la protezione delle rotte che richiedono autenticazione.
+ * @description Guard for protecting routes that require authentication.
  */
 @Injectable({
   providedIn: 'root'
@@ -12,30 +12,30 @@ import { AuthServiceService } from "../services/auth-service.service";
 export class AuthGuardGuard implements CanActivate {
 
   /**
-   * @description Costruttore della guardia.
-   * @param router Servizio di routing per la navigazione tra le pagine.
-   * @param authService Servizio di autenticazione per verificare lo stato dell'utente.
+   * @description Constructor of the guard.
+   * @param router Routing service for navigation between pages.
+   * @param authService Authentication service to check the user's authentication status.
    */
   constructor(private router: Router, private authService: AuthServiceService) {}
 
   /**
-   * @description Verifica se l'utente è autenticato prima di consentire l'accesso a una determinata rotta.
-   * @param route Snapshot dell'attuale route attivata.
-   * @param state Snapshot dello stato attuale del router.
-   * @returns True se l'utente è autenticato, altrimenti reindirizza alla pagina di login.
+   * @description Verifies if the user is authenticated before allowing access to a specific route.
+   * @param route Snapshot of the current activated route.
+   * @param state Snapshot of the current router state.
+   * @returns True if the user is authenticated, otherwise redirects to the login page.
    */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    console.log('Sono la Guardia');
+    console.log('I am the Guard');
 
-    // Verifica se l'utente è autenticato
+    // Check if the user is authenticated
     if (this.authService.isAuthenticated()) {
       return true;
     } else {
-      // Se l'utente non è autenticato, reindirizza alla pagina di login
-      console.log("Prova guardia", this.authService.isAuthenticated())
+      // If the user is not authenticated, redirect to the login page
+      console.log("AuthGuard test", this.authService.isAuthenticated())
       this.router.navigate(['/login']);
       return false;
     }

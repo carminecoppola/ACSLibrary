@@ -6,8 +6,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { PageStatus } from '../pageStatus';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import {NavbarComponent} from "../navbar/navbar.component";
+import { NavbarComponent } from "../navbar/navbar.component";
 
+/**
+ * Component for editing book details.
+ */
 @Component({
   selector: 'app-edit-book',
   templateUrl: './edit-book.component.html',
@@ -15,22 +18,15 @@ import {NavbarComponent} from "../navbar/navbar.component";
 })
 export class EditBookComponent implements OnInit, OnDestroy {
 
-  // Variabile privata per memorizzare il numero ISBN del libro
-  private codISBN: number = 0;
-  // Array per memorizzare il libro in fase di modifica
-  editingBook: Book[] = [];
-  // FormGroup per la modifica dei dettagli del libro
-  editBookForm!: FormGroup; // Aggiunto ! per indicare che sarà inizializzato in ngOnInit
-  // Array per memorizzare i dettagli del libro aggiornato
-  updatedBook: Book[] = [];
-  // Sottoscrizione per gestire gli observable
-  subscription: Subscription | null = null;
-  // Variabile per tracciare se il processo di modifica è completato
-  completed: boolean = false;
-  // Variabile di stato della pagina
-  public pageStatus: PageStatus = PageStatus.loading; // Inizializzato a "loading"
+  private codISBN: number = 0; // Private variable to store the ISBN number of the book
+  editingBook: Book[] = []; // Array to store the book being edited
+  editBookForm!: FormGroup; // FormGroup for editing book details
+  updatedBook: Book[] = []; // Array to store the updated book details
+  subscription: Subscription | null = null; // Subscription to manage observables
+  completed: boolean = false; // Variable to track if the editing process is completed
+  public pageStatus: PageStatus = PageStatus.loading; // Page status variable
 
-  // Durata del messaggio a comparsa
+  // Snackbar duration
   durationInSeconds = 5;
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -43,8 +39,8 @@ export class EditBookComponent implements OnInit, OnDestroy {
   ) {}
 
   /**
-   * Metodo di inizializzazione chiamato quando il componente viene caricato.
-   * Responsabile del recupero dei dettagli del libro e dell'inizializzazione del form di modifica.
+   * Method called when the component is loaded.
+   * Responsible for retrieving book details and initializing the edit form.
    */
   ngOnInit() {
     this.getBookInfo();
@@ -52,14 +48,14 @@ export class EditBookComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Hook di ciclo di vita per disiscriversi dagli observable quando il componente viene distrutto.
+   * Lifecycle hook to unsubscribe from observables when the component is destroyed.
    */
   ngOnDestroy(){
     this.subscription?.unsubscribe();
   }
 
   /**
-   * Metodo per ottenere solo il codice ISBN dai parametri della query.
+   * Method to extract only the ISBN code from query parameters.
    */
   getCodISBN(): void {
     this.subscription = this.route.queryParams.subscribe({
@@ -68,13 +64,13 @@ export class EditBookComponent implements OnInit, OnDestroy {
         console.log("getBookInfo() codISBN: ", this.codISBN);
       },
       error: () => {
-        console.error("codISBN non trovato");
+        console.error("codISBN not found");
       }
     });
   }
 
   /**
-   * Metodo per recuperare le informazioni del libro utilizzando il codice ISBN ottenuto.
+   * Method to retrieve book information using the obtained ISBN code.
    */
   getBookInfo() {
     this.getCodISBN();
@@ -85,30 +81,30 @@ export class EditBookComponent implements OnInit, OnDestroy {
         this.pageStatus = PageStatus.loaded;
         this.editingBook = res;
 
-        // Cerca se c'è un libro con un codice ISBN corrispondente a quello ottenuto
+        // Check if there is a book with an ISBN code matching the obtained one
         const bookFound: Book[] = this.editingBook.filter(b => b.codISBN === this.codISBN);
 
         if (bookFound.length > 0) {
-          // Recupera i dati di quel singolo libro
-          console.log("Libro trovato:", bookFound[0]);
+          // Retrieve the data of that single book
+          console.log("Book found:", bookFound[0]);
           this.setFormValues(bookFound[0]);
         } else {
-          this.pageStatus = PageStatus.error; // Pagina in errore
-          console.error("Impossibile accedere a questo libro");
+          this.pageStatus = PageStatus.error; // Page in error
+          console.error("Unable to access this book");
         }
 
       },
       error: (err) => {
-        // Dati del libro non recuperabili
-        this.pageStatus = PageStatus.error; // Pagina in errore
-        console.error("Impossibile recuperare i dati di questo libro ", err);
+        // Book data not retrievable
+        this.pageStatus = PageStatus.error; // Page in error
+        console.error("Unable to retrieve data for this book", err);
       }
     });
   }
 
   /**
-   * Metodo per impostare i valori del form con i dati del libro.
-   * @param book L'oggetto libro contenente i dati da impostare nel form.
+   * Method to set form values with book data.
+   * @param book The book object containing data to set in the form.
    */
   setFormValues(book: Book) {
     this.editBookForm.patchValue({
@@ -122,8 +118,8 @@ export class EditBookComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Metodo per creare il form di modifica del libro.
-   * @returns Oggetto FormGroup che rappresenta il form di modifica del libro.
+   * Method to create the book edit form.
+   * @returns FormGroup object representing the book edit form.
    */
   createEditBookForm(): FormGroup {
     return new FormGroup({
@@ -137,8 +133,8 @@ export class EditBookComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Metodo per modificare i dettagli del libro.
-   * Aggiorna i dettagli del libro con i valori dal form di modifica.
+   * Method to edit book details.
+   * Updates the book details with values from the edit form.
    */
   editBook() {
     this.completed = false;
@@ -157,7 +153,7 @@ export class EditBookComponent implements OnInit, OnDestroy {
         this.updatedBook = res;
 
         if (updatedBook) {
-          console.log("Libro aggiornato con successo", this.updatedBook);
+          console.log("Book updated successfully", this.updatedBook);
           this.completed = true;
 
           if (this.completed) {
@@ -169,16 +165,16 @@ export class EditBookComponent implements OnInit, OnDestroy {
           }
         } else {
           this.completed = false;
-          console.error("Errore nel form di modifica");
+          console.error("Error in edit form");
           this.editBook();
         }
       },
       error: (err) => {
-        console.error('Errore durante l\'aggiornamento del libro:', err);
+        console.error('Error updating the book:', err);
       }
     });
   }
 
-  // Enum per lo stato della pagina
+  // Enum for page status
   protected readonly PageStatus = PageStatus;
 }

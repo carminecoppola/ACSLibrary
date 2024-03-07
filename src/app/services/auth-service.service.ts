@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { User } from "../components/User";
 import { HttpClient } from "@angular/common/http";
-import { catchError, map, Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 
 /**
- * Servizio di autenticazione che gestisce il login, logout e fornisce informazioni sull'autenticazione.
+ * Authentication service that handles login, logout, and provides authentication information.
  */
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ import { catchError, map, Observable, of } from "rxjs";
 export class AuthServiceService {
 
   /**
-   * Variabile che tiene traccia dello stato dell'utente loggato.
+   * Variable to track the state of the logged-in user.
    */
   userData: User | null = null;
 
@@ -21,27 +21,25 @@ export class AuthServiceService {
   ) { }
 
   /**
-   * Effettua il login dell'utente verificando le credenziali fornite.
+   * Retrieves the list of users from the server.
+   * @returns An observable of users.
    */
-  getUsers(): Observable<any>{
-    //return un observable di user
-    return this.http.get('http://localhost:3000/users')
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>('http://localhost:3000/users');
   }
 
-
   /**
-   * Verifica se l'utente è attualmente autenticato.
-   * @returns true se l'utente è autenticato, altrimenti false.
+   * Checks if the user is currently authenticated.
+   * @returns true if the user is authenticated, otherwise false.
    */
   isAuthenticated(): boolean {
     return this.userData !== null;
   }
 
   /**
-   * Effettua il logout resettando le informazioni sull'utente e gli eventuali messaggi di errore.
+   * Logs out the user by resetting user data and any error messages.
    */
   logout() {
     this.userData = null;
   }
-
 }

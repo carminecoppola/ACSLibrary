@@ -1,49 +1,49 @@
-import {Component, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 
 /**
- * Componente per la barra di navigazione (navbar).
+ * Component for the navigation bar (navbar).
  */
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent{
+export class NavbarComponent {
 
-  /** Titolo visualizzato nella navbar. */
+  /** Title displayed in the navbar. */
   title = 'ACLibrary';
 
-  /** Flag che indica se l'utente è autenticato. */
+  /** Flag indicating whether the user is authenticated. */
   isLoggedIn: boolean = this.authService.isAuthenticated();
 
-  /** Flag che indica se mostrare o nascondere la freccia per tornare alla pagina precedente. */
+  /** Flag indicating whether to show or hide the back button. */
   showBackButton: boolean = false;
 
   /**
-   * Costruttore del componente.
-   * @param authService Servizio di autenticazione.
-   * @param router Oggetto per la navigazione tra le pagine.
-   * @param location Servizio per gestire la localizzazione (navigazione all'indietro).
+   * Constructor of the component.
+   * @param authService Authentication service.
+   * @param router Object for navigation between pages.
+   * @param location Service for managing location (back navigation).
    */
   constructor(
     private authService: AuthServiceService,
     private router: Router,
     private location: Location
   ) {
-    /*// Sottoscrizione agli eventi di navigazione per gestire la visibilità della freccia
+    // Subscription to navigation events to manage the visibility of the back button
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        // Aggiorna il flag per mostrare o nascondere la freccia in base alla pagina corrente
+        // Update the flag to show or hide the back button based on the current page
         this.showBackButton = this.router.url !== '/login';
       }
-    });*/
+    });
   }
 
   /**
-   * Esegue il logout e naviga verso la pagina di login.
+   * Logs out the user and navigates to the login page.
    */
   logout() {
     console.log('Logout');
@@ -52,11 +52,11 @@ export class NavbarComponent{
   }
 
   /**
-   * Torna alla pagina precedente.
+   * Goes back to the previous page.
    */
   goBack() {
-    this.showBackButton = true;
-    this.location.back();
-    this.showBackButton = false;
+    this.showBackButton = true; // Set showBackButton to true
+    this.location.back(); // Go back to the previous page
+    this.showBackButton = false; // Set showBackButton to false
   }
 }

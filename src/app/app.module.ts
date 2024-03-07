@@ -29,6 +29,7 @@ import { AddBookComponent } from './components/add-book/add-book.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { DialogComponentComponent } from './components/dialog-component/dialog-component.component';
 import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -41,12 +42,13 @@ import {MatSortModule} from "@angular/material/sort";
     AddBookComponent,
     DialogComponentComponent,
   ],
-    imports: [
-        BrowserModule, BrowserAnimationsModule, AppRoutingModule,
-        MatToolbarModule, MatIconModule, MatButtonModule, MatListModule, MatInputModule,
-        MatFormFieldModule, MatTableModule, NgOptimizedImage, ReactiveFormsModule, FormsModule, MatCardModule,
-        HttpClientModule, MatProgressSpinnerModule, MatSnackBarModule, MatSelectModule, MatDialogModule, MatSortModule,
-    ],
+  imports: [
+    BrowserModule, BrowserAnimationsModule, AppRoutingModule,
+    MatToolbarModule, MatIconModule, MatButtonModule, MatListModule, MatInputModule,
+    MatFormFieldModule, MatTableModule, NgOptimizedImage, ReactiveFormsModule, FormsModule, MatCardModule,
+    HttpClientModule, MatProgressSpinnerModule, MatSnackBarModule, MatSelectModule, MatDialogModule,
+    MatSortModule, MatPaginatorModule,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
