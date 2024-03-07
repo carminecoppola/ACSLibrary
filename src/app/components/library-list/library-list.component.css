@@ -42,11 +42,13 @@ th,td{
   color: white;
   font-weight: bold;
   text-align: center;
+  margin-left: 20px;
   font-size: large;
 }
 
 .content-cell{
   text-align: center;
+  margin: auto;
 }
 
 .mdc-data-table__table {
@@ -58,6 +60,7 @@ th,td{
   margin: 5px auto 10px;
 }
 
+
 .mat-fab-button {
   background-color: #48a655;
   width: 30px;
@@ -67,7 +70,7 @@ th,td{
 .containerAdd-button {
   display: flex;
   justify-content: flex-end;
-  margin: 20px 110px auto auto; /* In questo modo è allineata sullo spigolo in alto a destra della tabella */
+  margin: 10px 110px auto auto; /* In questo modo è allineata sullo spigolo in alto a destra della tabella */
 }
 
 
@@ -147,3 +150,35 @@ tr.alternate-row{
   --mdc-circular-progress-active-indicator-color: #2b4949;
 }
 
+/*filter style*/
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+/*paginator style*/
+.mat-mdc-paginator {
+  display: block;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.filtering-input{
+  margin: 10px auto auto;
+  min-width: 80%;
+  max-width: 400px;
+}
+
+.filtering-header {
+  padding: 10px;
+  text-align: center;
+  color: #2b4949;
+  font-size: medium;
+}
+
+
+.warning-message {
+  color: #d72b2b;
+  font-size: 12px;
+  margin-top: 5px;
+}
